@@ -1,34 +1,19 @@
 #include "fsm/states/WanderState.hpp"
 
-#include "sim/cow.hpp"
-#include "sim/hare.hpp"
+#include "kmint/rabbitisland/dog.hpp"
 
 using namespace fsm::states;
 
 template<>
-void WanderState<sim::cow>::Enter()
+void WanderState<kmint::rabbitisland::dog>::Enter()
 {
-    Data()->SetTint({0, 255, 0, 127});
+//    Data()->SetTint({0, 255, 0, 127});
     _timePassed = kmint::from_seconds(0);
     _steps = 0;
 }
 
 template<>
-void WanderState<sim::cow>::Exit()
+void WanderState<kmint::rabbitisland::dog>::Exit()
 {
-    Data()->RemoveTint();
-}
-
-template<>
-void WanderState<sim::hare>::Enter()
-{
-    Data()->SetTint({0, 255, 0, 127});
-    _timePassed = kmint::from_seconds(0);
-    _steps = 0;
-}
-
-template<>
-void WanderState<sim::hare>::Exit()
-{
-    Data()->RemoveTint();
+//    Data()->RemoveTint();
 }
