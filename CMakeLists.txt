@@ -1,6 +1,7 @@
 # Author: Jeroen de Haas <jah.dehaas@avans.nl>
 cmake_policy(SET CMP0048 NEW)
 cmake_minimum_required(VERSION 3.8)
+project(kmint-assessment)
 
 
 # This ensures both SDL2 and SDL2_image are known in both projects.

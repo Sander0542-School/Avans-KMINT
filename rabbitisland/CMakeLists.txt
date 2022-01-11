@@ -10,21 +10,12 @@ else()
     add_compile_options("$<$<CONFIG:DEBUG>:-g>")
 endif()
 
+file(GLOB_RECURSE SOURCE src/*.cpp)
   
-add_executable(rabbitisland
-  src/kmint/rabbitisland/main.cpp
-  src/kmint/rabbitisland/node_algorithm.cpp
-  src/kmint/rabbitisland/resources.cpp
-  src/kmint/rabbitisland/dog.cpp
-  src/kmint/rabbitisland/misses.cpp
-  src/kmint/rabbitisland/mister.cpp
-  src/kmint/rabbitisland/rabbit.cpp)
+add_executable(${PROJECT_NAME} ${SOURCE})
+target_include_directories(${PROJECT_NAME} PRIVATE src include)
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
+target_link_libraries(${PROJECT_NAME} PRIVATE kmint)
 
-target_compile_features(rabbitisland PUBLIC cxx_std_17)
-target_link_libraries(rabbitisland PRIVATE kmint)
-target_include_directories(rabbitisland PRIVATE 
-  src
-  include)
-
-add_custom_target(rabbitisland-resources ALL
+add_custom_target(${PROJECT_NAME}-resources ALL
   COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/resources" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/resources")
