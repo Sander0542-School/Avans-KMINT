@@ -1,2 +1,2 @@
-#include "HuntState.hpp"
+#include "HuntRabbitState.hpp"
 #include "WanderState.hpp"

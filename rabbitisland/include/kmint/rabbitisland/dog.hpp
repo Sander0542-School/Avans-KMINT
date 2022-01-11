@@ -5,6 +5,7 @@
 #include "kmint/play.hpp"
 #include "kmint/primitives.hpp"
 #include "fsm/StateMachine.hpp"
+#include "kmint/rabbitisland/rabbit.hpp"
 
 namespace kmint::rabbitisland
 {
@@ -46,6 +47,12 @@ namespace kmint::rabbitisland
             {
                 return 100.f;
             }
+
+            [[nodiscard]] double node_time() const;
+
+            [[nodiscard]] int nearby_rabbits() const;
+
+            [[nodiscard]] const rabbit* nearest_rabbit() const;
 
         private:
             // hoeveel tijd is verstreken sinds de laatste beweging
