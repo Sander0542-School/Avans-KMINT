@@ -43,7 +43,7 @@ namespace fsm::states
 
             void Exit() override;
 
-            int Steps() const
+            [[nodiscard]] int Steps() const
             {
                 return _steps;
             }
