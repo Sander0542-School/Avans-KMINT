@@ -1,5 +1,5 @@
-#ifndef KMINT_ASSESSMENT_WANDERHUNTTRANSITION_HPP
-#define KMINT_ASSESSMENT_WANDERHUNTTRANSITION_HPP
+#ifndef KMINT_ASSESSMENT_WANDERPHOTOGRAPHTRANSITION_HPP
+#define KMINT_ASSESSMENT_WANDERPHOTOGRAPHTRANSITION_HPP
 
 #include "fsm/Transition.hpp"
 #include "fsm/states/WanderState.hpp"
@@ -7,13 +7,13 @@
 namespace fsm::transitions
 {
     template<typename Ty_>
-    class WanderHuntTransition : public Transition<Ty_>
+    class WanderPhotographTransition : public Transition<Ty_>
     {
         private:
             int _steps;
 
         public:
-            explicit WanderHuntTransition(std::weak_ptr<State<Ty_>> to, int steps = 10) : Transition<Ty_>(to),
+            explicit WanderPhotographTransition(std::weak_ptr<State<Ty_>> to, int steps = 10) : Transition<Ty_>(to),
                                                                                           _steps{steps}
             {
             }
@@ -31,4 +31,4 @@ namespace fsm::transitions
     };
 }
 
-#endif //KMINT_ASSESSMENT_WANDERHUNTTRANSITION_HPP
+#endif //KMINT_ASSESSMENT_WANDERPHOTOGRAPHTRANSITION_HPP

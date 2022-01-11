@@ -1,5 +1,5 @@
-#ifndef KMINTAPP_PATHALGO_HPP
-#define KMINTAPP_PATHALGO_HPP
+#ifndef KMINT_ASSESSMENT_PATHALGO_HPP
+#define KMINT_ASSESSMENT_PATHALGO_HPP
 
 #include "kmint/graph/basic_node.hpp"
 #include "kmint/map/map.hpp"
@@ -25,4 +25,4 @@ namespace algorithms
     };
 }
 
-#endif //KMINTAPP_PATHALGO_HPP
+#endif //KMINT_ASSESSMENT_PATHALGO_HPP

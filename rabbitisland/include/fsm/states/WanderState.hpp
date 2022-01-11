@@ -1,5 +1,5 @@
-#ifndef KMINTAPP_WANDERSTATE_HPP
-#define KMINTAPP_WANDERSTATE_HPP
+#ifndef KMINT_ASSESSMENT_WANDERSTATE_HPP
+#define KMINT_ASSESSMENT_WANDERSTATE_HPP
 
 #include "containers/Random.hpp"
 #include "fsm/State.hpp"
@@ -56,4 +56,4 @@ namespace fsm::states
     };
 }
 
-#endif //KMINTAPP_WANDERSTATE_HPP
+#endif //KMINT_ASSESSMENT_WANDERSTATE_HPP

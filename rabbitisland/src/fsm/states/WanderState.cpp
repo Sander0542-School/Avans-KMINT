@@ -18,7 +18,6 @@ void WanderState<kmint::rabbitisland::mister>::Exit()
 //    Data()->RemoveTint();
 }
 
-
 template<>
 void WanderState<kmint::rabbitisland::misses>::Enter()
 {

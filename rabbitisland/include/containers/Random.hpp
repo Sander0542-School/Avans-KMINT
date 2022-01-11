@@ -1,5 +1,5 @@
-#ifndef KMINTAPP_RANDOM_HPP
-#define KMINTAPP_RANDOM_HPP
+#ifndef KMINT_ASSESSMENT_RANDOM_HPP
+#define KMINT_ASSESSMENT_RANDOM_HPP
 
 #include <random>
 
@@ -34,4 +34,4 @@ namespace containers
     };
 }
 
-#endif //KMINTAPP_RANDOM_HPP
+#endif //KMINT_ASSESSMENT_RANDOM_HPP

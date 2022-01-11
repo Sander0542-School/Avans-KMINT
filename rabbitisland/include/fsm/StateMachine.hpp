@@ -1,5 +1,5 @@
-#ifndef KMINTAPP_STATEMACHINE_HPP
-#define KMINTAPP_STATEMACHINE_HPP
+#ifndef KMINT_ASSESSMENT_STATEMACHINE_HPP
+#define KMINT_ASSESSMENT_STATEMACHINE_HPP
 
 #include "State.hpp"
 #include "Transition.hpp"
@@ -48,4 +48,4 @@ namespace fsm
     };
 }
 
-#endif //KMINTAPP_STATEMACHINE_HPP
+#endif //KMINT_ASSESSMENT_STATEMACHINE_HPP
