@@ -8,17 +8,14 @@
 
 namespace fsm::states
 {
-    template<typename Ty_>
-    class WanderState : public State<Ty_>
+    class ScaredDogState : public State<kmint::rabbitisland::dog>
     {
         private:
             kmint::delta_time _timePassed{};
-            std::function<double(const Ty_*)> _stepDuration;
             int _steps = 0;
 
         public:
-            explicit WanderState(Ty_* data, std::function<double(const Ty_*)> stepDuration, bool allowHunting = true) : State<Ty_>(data),
-                                                                                                                        _stepDuration(stepDuration)
+            explicit ScaredDogState(kmint::rabbitisland::dog* data) : State<kmint::rabbitisland::dog>(data)
             {
             }
 
@@ -26,7 +23,7 @@ namespace fsm::states
             {
                 _timePassed += deltaTime;
 
-                if (kmint::to_seconds(_timePassed) < StepDuration()) return;
+                if (kmint::to_seconds(_timePassed) < Data()->NodeWaitingTime()) return;
 
                 if (this->Data() != nullptr)
                 {
@@ -40,14 +37,18 @@ namespace fsm::states
                 _timePassed = kmint::from_seconds(0);
             };
 
-            double StepDuration()
+            void Enter() override
             {
-                return _stepDuration(this->Data());
+//                Data()->SetTint({0, 255, 0, 127});
+                Data()->IsHunting(true);
+                _timePassed = kmint::from_seconds(0);
+                _steps = 0;
             }
 
-            void Enter() override;
-
-            void Exit() override;
+            void Exit() override
+            {
+//                Data()->RemoveTint();
+            }
 
             [[nodiscard]] int Steps() const
             {
