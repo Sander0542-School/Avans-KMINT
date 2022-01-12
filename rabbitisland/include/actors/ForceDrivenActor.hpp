@@ -5,7 +5,7 @@
 #include "kmint/play.hpp"
 #include "consts.hpp"
 
-namespace movement
+namespace actors
 {
     class ForceDrivenActor : public kmint::play::free_roaming_actor
     {

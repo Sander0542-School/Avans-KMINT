@@ -2,13 +2,13 @@
 #define KMINT_RABBITISLAND_RABBIT_HPP
 
 #include "kmint/play.hpp"
-#include "movement/ForceDrivenActor.hpp"
+#include "actors/ForceDrivenActor.hpp"
 #include <tuple>
 #include <vector>
 
 namespace kmint::rabbitisland
 {
-    class rabbit : public movement::ForceDrivenActor
+    class rabbit : public actors::ForceDrivenActor
     {
         public:
             rabbit();

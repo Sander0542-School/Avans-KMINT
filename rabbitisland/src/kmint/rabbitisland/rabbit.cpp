@@ -5,7 +5,7 @@
 
 namespace kmint::rabbitisland
 {
-    rabbit::rabbit() : movement::ForceDrivenActor{random_location()}, drawable_{*this, rabbit_image()}, alive{true}
+    rabbit::rabbit() : actors::ForceDrivenActor{random_location()}, drawable_{*this, rabbit_image()}, alive{true}
     {
     }
 
