@@ -31,7 +31,7 @@ namespace fsm::states
             void Tick(kmint::delta_time deltaTime) override
             {
                 _timePassed += deltaTime;
-                if (const auto* rabbit = Data()->nearest_rabbit(); rabbit)
+                if (const auto* rabbit = Data()->NearestRabbit(); rabbit)
                 {
                     _target = &kmint::rabbitisland::find_closest_node_to(_graph, rabbit->location());
                 }
@@ -42,7 +42,7 @@ namespace fsm::states
                         _path = _pathAlgo->find(Data()->node(), *_target);
                     }
 
-                    if (kmint::to_seconds(_timePassed) < Data()->node_time()) return;
+                    if (kmint::to_seconds(_timePassed) < Data()->NodeWaitingTime()) return;
 
                     if (_path.size() > 1)
                     {
@@ -56,7 +56,7 @@ namespace fsm::states
 
             void Enter() override
             {
-                Data()->isHunting(true);
+                Data()->IsHunting(true);
                 _timePassed = kmint::from_seconds(0);
             }
 

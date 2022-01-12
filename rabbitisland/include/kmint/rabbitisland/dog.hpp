@@ -48,15 +48,15 @@ namespace kmint::rabbitisland
                 return 100.f;
             }
 
-            [[nodiscard]] double node_time() const;
+            [[nodiscard]] double NodeWaitingTime() const;
 
-            [[nodiscard]] int nearby_rabbits() const;
+            [[nodiscard]] int NearbyRabbits() const;
 
-            [[nodiscard]] const rabbit* nearest_rabbit() const;
+            [[nodiscard]] const rabbit* NearestRabbit() const;
 
-            [[nodiscard]] bool isHunting() const;
+            [[nodiscard]] bool IsHunting() const;
 
-            void isHunting(bool isHunting);
+            void IsHunting(bool isHunting);
 
         private:
             // hoeveel tijd is verstreken sinds de laatste beweging

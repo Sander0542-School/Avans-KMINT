@@ -20,7 +20,7 @@ namespace kmint::rabbitisland
         for (auto i = begin_collision(); i != end_collision(); ++i)
         {
             auto const& a = *i;
-            if (auto const* p = dynamic_cast<dog const*>(&a); p && p->isHunting())
+            if (auto const* p = dynamic_cast<dog const*>(&a); p && p->IsHunting())
             {
                 std::cout << "See you.." << a.location().x() << ", " << a.location().y() << "\n";
                 alive = false;
