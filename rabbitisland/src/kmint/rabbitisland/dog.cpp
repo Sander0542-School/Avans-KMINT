@@ -117,7 +117,7 @@ namespace kmint::rabbitisland
             auto const& a = *i;
             if (auto const* p = dynamic_cast<rabbit const*>(&a); p)
             {
-                auto nDistance = distance2(location(), p->location());
+                auto nDistance = math::distance(location(), p->location());
                 if (nDistance < distance)
                 {
                     distance = nDistance;
