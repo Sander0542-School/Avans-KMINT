@@ -27,21 +27,30 @@ namespace kmint::rabbitisland
         auto wanderState = std::make_shared<WanderState<dog>>(this);
         auto huntState = std::make_shared<HuntRabbitState>(this, g);
         auto scaredState = std::make_shared<ScaredDogState>(this);
-
-        auto wanderHuntTransition = std::make_shared<LambdaTransition<dog>>(huntState, [](const std::shared_ptr<fsm::State<dog>>& state) { return state->Data()->NearbyRabbits() > 0; });
-        auto huntWanderTransition = std::make_shared<LambdaTransition<dog>>(wanderState, [](const std::shared_ptr<fsm::State<dog>>& state) { return state->Data()->NearbyRabbits() == 0; });
-
-        auto scaredTransition = std::make_shared<LambdaTransition<dog>>(scaredState, [](const std::shared_ptr<fsm::State<dog>>& state) { return state->Data()->NearbyRabbits() > 10; });
-        auto scaredWanderTransition = std::make_shared<LambdaTransition<dog>>(wanderState, [](const std::shared_ptr<fsm::State<dog>>& state) {
         auto thirstState = std::make_shared<ThirstyDogState>(this, g, &mister, &misses);
+
+        auto wanderHuntTransition = std::make_shared<LambdaTransition<dog>>(huntState, [](const SharedDogState& state) { return state->Data()->NearbyRabbits() > 0; });
+        auto huntWanderTransition = std::make_shared<LambdaTransition<dog>>(wanderState, [](const SharedDogState& state) { return state->Data()->NearbyRabbits() == 0; });
+        auto dogThirstTransition = std::make_shared<LambdaTransition<dog>>(thirstState, [](const SharedDogState& state) { return state->Data()->Thirst() == 100; });
+        auto thirstWanderTransition = std::make_shared<LambdaTransition<dog>>(wanderState, [](const SharedDogState& state) { return state->Data()->Thirst() != 100; });
+        auto scaredTransition = std::make_shared<LambdaTransition<dog>>(scaredState, [](const SharedDogState& state) { return state->Data()->NearbyRabbits() > 10; });
+        auto scaredWanderTransition = std::make_shared<LambdaTransition<dog>>(wanderState, [](const SharedDogState& state) {
             auto scaredState = std::dynamic_pointer_cast<WanderState<dog>>(state);
             return scaredState->Steps() >= 10;
         });
 
         wanderState->AddTransition(wanderHuntTransition);
         wanderState->AddTransition(scaredTransition);
+        wanderState->AddTransition(dogThirstTransition);
+
         huntState->AddTransition(huntWanderTransition);
         huntState->AddTransition(scaredTransition);
+        huntState->AddTransition(dogThirstTransition);
+
+        scaredState->AddTransition(dogThirstTransition);
+        scaredState->AddTransition(scaredWanderTransition);
+
+        thirstState->AddTransition(thirstWanderTransition);
 
         AddState(wanderState);
         AddState(huntState);
