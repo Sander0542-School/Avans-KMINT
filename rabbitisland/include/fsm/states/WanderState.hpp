@@ -34,6 +34,7 @@ namespace fsm::states
 
                     this->Data()->node(edgeNode);
                     ++_steps;
+                    HandleStep();
                 }
 
                 _timePassed = kmint::from_seconds(0);
@@ -44,6 +45,8 @@ namespace fsm::states
             void Enter() override;
 
             void Exit() override;
+
+            void HandleStep();
 
             [[nodiscard]] int Steps() const
             {

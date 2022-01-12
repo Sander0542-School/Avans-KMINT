@@ -18,6 +18,11 @@ void WanderState<Ty_>::Enter()
     _steps = 0;
 }
 
+template<typename Ty_>
+void WanderState<Ty_>::HandleStep()
+{
+}
+
 template<>
 void WanderState<dog>::Enter()
 {
@@ -37,4 +42,10 @@ template<>
 double WanderState<dog>::StepDuration() const
 {
     return Data()->NodeWaitingTime() * Period;
+}
+
+template<>
+void WanderState<dog>::HandleStep()
+{
+    Data()->UseThirst();
 }
