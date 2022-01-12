@@ -16,7 +16,6 @@ namespace kmint::rabbitisland
 
     void rabbit::act(delta_time dt)
     {
-
         // wanneer een konijn collide met de hond, is het konijn dood
         for (auto i = begin_collision(); i != end_collision(); ++i)
         {
