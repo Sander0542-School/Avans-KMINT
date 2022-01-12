@@ -19,19 +19,16 @@ namespace kmint::rabbitisland
     dog::dog(map::map_graph& g, map::map_node& initial_node) : play::map_bound_actor{initial_node},
                                                                drawable_(*this, graphics::image(dog_image()))
     {
-        auto wanderState = std::make_shared<WanderState < dog>>
-        (this, [](const dog* dog1) { return dog1->NodeWaitingTime(); });
+        auto wanderState = std::make_shared<WanderState<dog>>(this);
         auto huntState = std::make_shared<HuntRabbitState>(this, g);
-        auto scaredState = std::make_shared<WanderState < dog>>
-        (this, [](const dog* dog1) { return dog1->NodeWaitingTime(); }, false);
+        auto scaredState = std::make_shared<ScaredDogState>(this);
 
         auto wanderHuntTransition = std::make_shared<LambdaTransition<dog>>(huntState, [](const std::shared_ptr<fsm::State<dog>>& state) { return state->Data()->NearbyRabbits() > 0; });
         auto huntWanderTransition = std::make_shared<LambdaTransition<dog>>(wanderState, [](const std::shared_ptr<fsm::State<dog>>& state) { return state->Data()->NearbyRabbits() == 0; });
 
         auto scaredTransition = std::make_shared<LambdaTransition<dog>>(scaredState, [](const std::shared_ptr<fsm::State<dog>>& state) { return state->Data()->NearbyRabbits() > 10; });
         auto scaredWanderTransition = std::make_shared<LambdaTransition<dog>>(wanderState, [](const std::shared_ptr<fsm::State<dog>>& state) {
-            auto scaredState = std::dynamic_pointer_cast<WanderState < dog>>
-            (state);
+            auto scaredState = std::dynamic_pointer_cast<WanderState<dog>>(state);
             return scaredState->Steps() >= 10;
         });
 
