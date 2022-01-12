@@ -36,6 +36,7 @@ namespace fsm::states
 
                     this->Data()->node(edgeNode);
                     ++_steps;
+                    HandleStep();
                 }
 
                 _timePassed = kmint::from_seconds(0);
@@ -47,10 +48,21 @@ namespace fsm::states
             {
                 return _totalDuration;
             }
+			
+            void Enter()
+            {
+                _timePassed = kmint::from_seconds(0);
+                _totalDuration = kmint::from_seconds(0);
+                _steps = 0;
 
-            void Enter() override;
-
+                AfterEnter();
+            }
+			
             void Exit() override;
+
+            virtual void AfterEnter();
+
+            void HandleStep();
 
             [[nodiscard]] int Steps() const
             {

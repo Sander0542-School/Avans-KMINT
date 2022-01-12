@@ -13,19 +13,20 @@ double WanderState<Ty_>::StepDuration() const
 }
 
 template<typename Ty_>
-void WanderState<Ty_>::Enter()
+void WanderState<Ty_>::AfterEnter()
 {
-    _timePassed = kmint::from_seconds(0);
-    _steps = 0;
+}
+
+template<typename Ty_>
+void WanderState<Ty_>::HandleStep()
+{
 }
 
 template<>
-void WanderState<dog>::Enter()
+void WanderState<dog>::AfterEnter()
 {
 //    Data()->SetTint({0, 255, 0, 127});
     Data()->IsHunting(true);
-    _timePassed = kmint::from_seconds(0);
-    _steps = 0;
 }
 
 template<>
@@ -41,12 +42,9 @@ double WanderState<dog>::StepDuration() const
 }
 
 template<>
-void WanderState<mister>::Enter()
+void WanderState<dog>::HandleStep()
 {
-//    Data()->SetTint({0, 255, 0, 127});
-    _timePassed = kmint::from_seconds(0);
-    _totalDuration = kmint::from_seconds(0);
-    _steps = 0;
+    Data()->UseThirst();
 }
 
 template<>
@@ -59,15 +57,6 @@ template<>
 double WanderState<mister>::StepDuration() const
 {
     return Period * MisterWanderSpeed;
-}
-
-template<>
-void WanderState<misses>::Enter()
-{
-//    Data()->SetTint({0, 255, 0, 127});
-    _timePassed = kmint::from_seconds(0);
-    _totalDuration = kmint::from_seconds(0);
-    _steps = 0;
 }
 
 template<>
