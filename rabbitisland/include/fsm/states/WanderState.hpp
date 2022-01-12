@@ -15,10 +15,12 @@ namespace fsm::states
             kmint::delta_time _timePassed{};
             std::function<double(const Ty_*)> _stepDuration;
             int _steps = 0;
+            bool _allowHunting;
 
         public:
-            explicit WanderState(Ty_* data, std::function<double(const Ty_*)> stepDuration) : State<Ty_>(data),
-                                                                                              _stepDuration{stepDuration}
+            explicit WanderState(Ty_* data, std::function<double(const Ty_*)> stepDuration, bool allowHunting = true) : State<Ty_>(data),
+                                                                                                                        _stepDuration(stepDuration),
+                                                                                                                        _allowHunting(allowHunting)
             {
             }
 

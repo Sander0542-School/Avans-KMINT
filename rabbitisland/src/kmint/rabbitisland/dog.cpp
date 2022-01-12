@@ -16,14 +16,12 @@ using namespace fsm::transitions;
 
 namespace kmint::rabbitisland
 {
-    dog::dog(map::map_graph& g, map::map_node& initial_node) : play::map_bound_actor{initial_node}, drawable_{
-            *this, graphics::image{
-                    dog_image()
-            }}
+    dog::dog(map::map_graph& g, map::map_node& initial_node) : play::map_bound_actor{initial_node},
+                                                               drawable_(*this, graphics::image(dog_image()))
     {
         auto wanderState = std::make_shared<WanderState<dog>>(this, [](const dog* dog1) { return dog1->node_time(); });
         auto huntState = std::make_shared<HuntRabbitState>(this, g);
-        auto scaredState = std::make_shared<WanderState<dog>>(this, [](const dog* dog1) { return dog1->node_time(); });
+        auto scaredState = std::make_shared<WanderState<dog>>(this, [](const dog* dog1) { return dog1->node_time(); }, false);
 
         auto wanderHuntTransition = std::make_shared<LambdaTransition<dog>>(huntState, [](const std::shared_ptr<fsm::State<dog>>& state) { return state->Data()->nearby_rabbits() > 0; });
         auto huntWanderTransition = std::make_shared<LambdaTransition<dog>>(wanderState, [](const std::shared_ptr<fsm::State<dog>>& state) { return state->Data()->nearby_rabbits() == 0; });
@@ -108,6 +106,16 @@ namespace kmint::rabbitisland
         }
 
         return nearestRabbit;
+    }
+
+    bool dog::isHunting() const
+    {
+        return _isHunting;
+    }
+
+    void dog::isHunting(bool isHunting)
+    {
+        _isHunting = isHunting;
     }
 
 } // namespace kmint

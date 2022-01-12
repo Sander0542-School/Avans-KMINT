@@ -54,11 +54,16 @@ namespace kmint::rabbitisland
 
             [[nodiscard]] const rabbit* nearest_rabbit() const;
 
+            [[nodiscard]] bool isHunting() const;
+
+            void isHunting(bool isHunting);
+
         private:
             // hoeveel tijd is verstreken sinds de laatste beweging
             delta_time t_passed_{};
             // weet hoe de hond getekend moet worden
             play::image_drawable drawable_;
+            bool _isHunting;
     };
 
 } // namespace kmint

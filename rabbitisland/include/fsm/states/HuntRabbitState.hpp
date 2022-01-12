@@ -56,6 +56,7 @@ namespace fsm::states
 
             void Enter() override
             {
+                Data()->isHunting(true);
                 _timePassed = kmint::from_seconds(0);
             }
 

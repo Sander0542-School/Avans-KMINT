@@ -22,7 +22,7 @@ void rabbit::act(delta_time dt) {
     // wanneer een konijn collide met de hond, is het konijn dood
     for (auto i = begin_collision(); i != end_collision(); ++i) {
         auto const& a = *i;
-        if (auto const* p = dynamic_cast<dog const*>(&a); p) {
+        if (auto const* p = dynamic_cast<dog const*>(&a); p && p->isHunting()) {
             std::cout << "See you.." << a.location().x() << ", "
                 << a.location().y() << "\n";
             alive = false;
