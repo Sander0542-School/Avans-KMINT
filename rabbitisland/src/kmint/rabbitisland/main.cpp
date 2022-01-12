@@ -23,14 +23,10 @@ int main()
     play::stage s{{1024, 768}};
 
     auto map = rabbitisland::map();
+    auto secondMap = rabbitisland::SecondMap();
     auto& graph = map.graph();
     s.build_actor<play::background>(math::size(1024, 768), graphics::image{map.background_image()});
     s.build_actor<play::map_actor>(math::vector2d{0.f, 0.f}, map.graph());
-
-    auto secondMap = rabbitisland::SecondMap();
-    std::vector<map::map_node*> waterNodes{secondMap.begin_of_kind('W'), secondMap.end_of_kind('W')};
-    std::vector<map::map_node*> grassNodes{secondMap.begin_of_kind('G'), secondMap.end_of_kind('G')};
-    std::vector<map::map_node*> holeNodes{secondMap.begin_of_kind('H'), secondMap.end_of_kind('H')};
 
     for (auto it = secondMap.begin_of_kind('W'); it != secondMap.end_of_kind('W'); ++it)
     {
