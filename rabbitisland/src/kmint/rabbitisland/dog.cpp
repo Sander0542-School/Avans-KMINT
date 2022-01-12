@@ -125,14 +125,14 @@ namespace kmint::rabbitisland
 
     void dog::UseThirst()
     {
-        --_thirst;
-        if (_thirst < 0) _thirst = 0;
+        ++_thirst;
+        if (_thirst > 100) _thirst = 100;
     }
 
     void dog::Drink(int amount)
     {
-        _thirst += amount;
-        if (_thirst > 100) _thirst = 100;
+        _thirst -= amount;
+        if (_thirst < 0) _thirst = 0;
     }
 
 } // namespace kmint
