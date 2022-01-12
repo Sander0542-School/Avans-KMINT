@@ -4,8 +4,6 @@
 #include "fsm/Transition.hpp"
 #include "fsm/states/WanderState.hpp"
 
-#include "sim/cow.hpp"
-
 namespace fsm::transitions
 {
     template<typename Ty_>
