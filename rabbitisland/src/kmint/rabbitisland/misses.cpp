@@ -2,18 +2,26 @@
 #include "kmint/rabbitisland/node_algorithm.hpp"
 #include "kmint/rabbitisland/resources.hpp"
 #include "kmint/random.hpp"
+#include "kmint/rabbitisland/rabbit.hpp"
 
 #include "consts.hpp"
-
-#include "fsm/states/WanderState.hpp"
-#include "kmint/rabbitisland/rabbit.hpp"
+#include "fsm/fsm.hpp"
 
 namespace kmint::rabbitisland
 {
     misses::misses(map::map_graph& g, map::map_node& initial_node) : play::map_bound_actor{initial_node},
                                                                      drawable_{*this, graphics::image{misses_image()}}
     {
-        AddState(std::make_shared<fsm::states::WanderState<misses>>(this));
+        auto wanderState = std::make_shared<fsm::states::WanderState<misses>>(this);
+        auto freezeState = std::make_shared<fsm::states::FreezeState<misses>>(this);
+
+        AddState(wanderState);
+        AddState(freezeState);
+
+        auto wanderPhotographTransition = std::make_shared<fsm::transitions::WanderScaredFromBunnyTransition<misses>>(freezeState);
+        auto photographWanderTransition = std::make_shared<fsm::transitions::ScaredFromBunnyWanderTransition<misses>>(wanderState);
+        wanderState->AddTransition(wanderPhotographTransition);
+        freezeState->AddTransition(photographWanderTransition);
     }
 
     void misses::act(delta_time dt)

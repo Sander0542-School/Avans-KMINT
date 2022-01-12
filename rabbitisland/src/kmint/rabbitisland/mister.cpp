@@ -4,11 +4,7 @@
 #include "kmint/random.hpp"
 
 #include "consts.hpp"
-
-#include "fsm/states/WanderState.hpp"
-#include "fsm/states/FreezeState.hpp"
-#include "fsm/transitions/WanderPhotographTransition.hpp"
-#include "fsm/transitions/PhotographWanderTransition.hpp"
+#include "fsm/fsm.hpp"
 
 namespace kmint::rabbitisland
 {

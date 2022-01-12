@@ -29,9 +29,14 @@ namespace fsm::states
                 return _totalDuration;
             }
 
-            void Enter() override;
+            void Enter() override
+            {
+                _totalDuration = kmint::from_seconds(0);
+            }
 
-            void Exit() override;
+            void Exit() override
+            {
+            }
     };
 }
 
