@@ -26,6 +26,7 @@ int main()
     s.build_actor<play::background>(math::size(1024, 768), graphics::image{map.background_image()});
     s.build_actor<play::map_actor>(math::vector2d{0.f, 0.f}, map.graph());
 
+    auto secondMap = rabbitisland::SecondMap();
 
     for (auto i = 0; i < 100; ++i)
     {
