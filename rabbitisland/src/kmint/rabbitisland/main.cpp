@@ -30,8 +30,7 @@ int main()
 
     for (auto it = secondMap.begin_of_kind('W'); it != secondMap.end_of_kind('W'); ++it)
     {
-        map::map_node& node = **it;
-        s.build_actor<actors::WaterNodeActor>(node);
+        s.build_actor<actors::WaterNodeActor>(**it);
     }
 
     auto& mister = s.build_actor<rabbitisland::mister>(graph, rabbitisland::find_node_of_kind(graph, '2'));
