@@ -8,7 +8,7 @@ namespace actors
     class WaterNodeActor : public CollidableNodeActor
     {
         public:
-            explicit WaterNodeActor(kmint::map::map_node& node) : CollidableNodeActor(node)
+            explicit WaterNodeActor(const kmint::map::map_node& node) : CollidableNodeActor(node)
             {
                 if (node.node_info().kind != 'W')
                 {

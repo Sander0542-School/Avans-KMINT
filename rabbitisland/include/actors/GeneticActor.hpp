@@ -2,12 +2,22 @@
 #define KMINT_ASSESSMENT_GENETICACTOR_HPP
 
 #include "kmint/random.hpp"
+#include "kmint/rabbitisland/node_algorithm.hpp"
+#include "kmint/rabbitisland/dog.hpp"
 #include "ForceDrivenActor.hpp"
 
 namespace actors
 {
+    using Graph = kmint::map::map_graph;
+
     class GeneticActor : public ForceDrivenActor
     {
+        private:
+            const Graph& _waterGraph;
+            const Graph& _grassGraph;
+            const Graph& _holesGraph;
+            const kmint::rabbitisland::dog& _dog;
+
         protected:
             float attractionDog;
             float attractionWater;
@@ -18,7 +28,11 @@ namespace actors
             float alignment;
 
         public:
-            explicit GeneticActor(const kmint::math::vector2d& location) : ForceDrivenActor(location)
+            GeneticActor(const kmint::math::vector2d& location, const Graph& waterGraph, const Graph& grassGraph, const Graph& holesGraph, const kmint::rabbitisland::dog& dog) : ForceDrivenActor(location),
+                                                                                                                                                                                  _waterGraph(waterGraph),
+                                                                                                                                                                                  _grassGraph(grassGraph),
+                                                                                                                                                                                  _holesGraph(holesGraph),
+                                                                                                                                                                                  _dog(dog)
             {
                 attractionDog = kmint::random_scalar(-1, 1);
                 attractionWater = kmint::random_scalar(-1, 1);
@@ -33,17 +47,20 @@ namespace actors
             {
                 ForceDrivenActor::act(dt);
 
-                kmint::scalar min{-(RabbitMaxVelocity / 2)};
-                kmint::scalar max{(RabbitMaxVelocity / 2)};
-                kmint::math::vector2d force{kmint::random_scalar(min, max), kmint::random_scalar(min, max)};
+                auto dogVector = (_dog.location() - location()) * attractionDog;
+                auto waterVector = (ClosestNode(_waterGraph) - location()) * attractionDog;
+                auto grassVector = (ClosestNode(_grassGraph) - location()) * attractionGrass;
+                auto holesVector = (ClosestNode(_holesGraph) - location()) * attractionHoles;
+
+                auto force = dogVector + waterVector + grassVector + holesVector;
 
                 ApplyForce(force, dt);
             }
 
         private:
-            static bool InRange(float value, float min = -1, float max = 1)
+            kmint::math::vector2d ClosestNode(const Graph& graph)
             {
-                return value >= min && value <= max;
+                return kmint::rabbitisland::find_closest_node_to(graph, location()).location();
             }
     };
 }

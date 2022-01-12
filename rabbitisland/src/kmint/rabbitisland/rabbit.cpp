@@ -1,14 +1,13 @@
 #include "kmint/rabbitisland/rabbit.hpp"
-#include "kmint/rabbitisland/dog.hpp"
 #include "kmint/rabbitisland/resources.hpp"
 #include "kmint/random.hpp"
 #include "actors/WaterNodeActor.hpp"
 
 namespace kmint::rabbitisland
 {
-    rabbit::rabbit(const kmint::map::map& map, const dog& dog) : actors::GeneticActor{random_location()},
-                                                                 drawable_{*this, rabbit_image()},
-                                                                 alive{true}
+    rabbit::rabbit(const map::map_graph& waterGraph, const map::map_graph& grassGraph, const map::map_graph& holesGraph, const dog& dog) : actors::GeneticActor(random_location(), waterGraph, grassGraph, holesGraph, dog),
+                                                                                                                                           drawable_(*this, rabbit_image()),
+                                                                                                                                           alive{true}
     {
     }
 

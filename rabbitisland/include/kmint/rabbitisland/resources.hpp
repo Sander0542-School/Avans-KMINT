@@ -9,7 +9,9 @@ namespace kmint {
 namespace rabbitisland {
 
 map::map map();
-map::map SecondMap();
+map::map WaterMap();
+map::map GrassMap();
+map::map HolesMap();
 graphics::image dog_image();
 graphics::image rabbit_image();
 graphics::image misses_image();

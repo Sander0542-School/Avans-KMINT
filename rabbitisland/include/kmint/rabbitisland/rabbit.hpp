@@ -8,12 +8,10 @@
 
 namespace kmint::rabbitisland
 {
-    class dog;
-
     class rabbit : public actors::GeneticActor
     {
         public:
-            rabbit(const map::map& map, const dog& dog);
+            rabbit(const map::map_graph& waterGraph, const map::map_graph& grassGraph, const map::map_graph& holesGraph, const dog& dog);
 
             [[nodiscard]] const ui::drawable& drawable() const override
             {

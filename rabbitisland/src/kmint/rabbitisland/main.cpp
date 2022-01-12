@@ -23,14 +23,20 @@ int main()
     play::stage s{{1024, 768}};
 
     auto map = rabbitisland::map();
-    auto secondMap = rabbitisland::SecondMap();
     auto& graph = map.graph();
     s.build_actor<play::background>(math::size(1024, 768), graphics::image{map.background_image()});
     s.build_actor<play::map_actor>(math::vector2d{0.f, 0.f}, map.graph());
 
-    for (auto it = secondMap.begin_of_kind('W'); it != secondMap.end_of_kind('W'); ++it)
+    auto waterMap = rabbitisland::WaterMap();
+    auto& waterGraph = waterMap.graph();
+    auto grassMap = rabbitisland::GrassMap();
+    auto& grassGraph = grassMap.graph();
+    auto holesMap = rabbitisland::HolesMap();
+    auto& holesGraph = holesMap.graph();
+
+    for (const map::map_node& node: waterGraph)
     {
-        s.build_actor<actors::WaterNodeActor>(**it);
+        s.build_actor<actors::WaterNodeActor>(node);
     }
 
     auto& mister = s.build_actor<rabbitisland::mister>(graph, rabbitisland::find_node_of_kind(graph, '2'));
@@ -39,7 +45,7 @@ int main()
 
     for (auto i = 0; i < 100; ++i)
     {
-        s.build_actor<rabbitisland::rabbit>(secondMap, dog);
+        s.build_actor<rabbitisland::rabbit>(waterGraph, grassGraph, holesGraph, dog);
     }
 
     // Maak een event_source aan (hieruit kun je alle events halen, zoals

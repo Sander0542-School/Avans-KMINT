@@ -5,12 +5,13 @@
 #include "kmint/play.hpp"
 #include "kmint/primitives.hpp"
 #include "fsm/StateMachine.hpp"
-#include "kmint/rabbitisland/rabbit.hpp"
 #include "kmint/rabbitisland/misses.hpp"
 #include "kmint/rabbitisland/mister.hpp"
 
 namespace kmint::rabbitisland
 {
+    class rabbit;
+
     class dog : public play::map_bound_actor, public fsm::StateMachine<dog>
     {
         public:

@@ -14,8 +14,8 @@ namespace actors
             kmint::play::image_drawable _drawable;
 
         public:
-            explicit CollidableNodeActor(kmint::map::map_node& node) : free_roaming_actor(node.location()),
-                                                                       _drawable(*this, kmint::graphics::image{kmint::rabbitisland::InvisibleImage()})
+            explicit CollidableNodeActor(const kmint::map::map_node& node) : free_roaming_actor(node.location()),
+                                                                             _drawable(*this, kmint::graphics::image(kmint::rabbitisland::InvisibleImage()))
             {
             }
 
