@@ -6,13 +6,15 @@
 #include "kmint/primitives.hpp"
 #include "fsm/StateMachine.hpp"
 #include "kmint/rabbitisland/rabbit.hpp"
+#include "kmint/rabbitisland/misses.hpp"
+#include "kmint/rabbitisland/mister.hpp"
 
 namespace kmint::rabbitisland
 {
     class dog : public play::map_bound_actor, public fsm::StateMachine<dog>
     {
         public:
-            dog(map::map_graph& g, map::map_node& initial_node);
+            dog(map::map_graph& g, map::map_node& initial_node, const mister& mister, const misses& misses);
 
             // wordt elke game tick aangeroepen
             void act(delta_time dt) override;
@@ -64,6 +66,10 @@ namespace kmint::rabbitisland
 
             void UseThirst();
 
+            [[nodiscard]] int TimesDrank() const;
+
+            void Sleep();
+
         private:
             // hoeveel tijd is verstreken sinds de laatste beweging
             delta_time t_passed_{};
@@ -71,6 +77,7 @@ namespace kmint::rabbitisland
             play::image_drawable drawable_;
             bool _isHunting;
             int _thirst;
+            int _timesDrank;
     };
 
 } // namespace kmint

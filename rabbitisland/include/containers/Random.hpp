@@ -24,6 +24,17 @@ namespace containers
                 return dist(_instance._engine);
             }
 
+            static int NextDouble(int min, int max)
+            {
+                std::uniform_int_distribution<int> dist{min, max};
+                return dist(_instance._engine);
+            }
+
+            static bool NextBool()
+            {
+                return Next(0, 1) == 1;
+            }
+
             Random(const Random&) = delete;
 
             Random& operator=(const Random&) = delete;

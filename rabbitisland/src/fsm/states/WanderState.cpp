@@ -6,22 +6,6 @@
 using namespace fsm::states;
 using namespace kmint::rabbitisland;
 
-template<typename Ty_>
-double WanderState<Ty_>::StepDuration() const
-{
-    return Period;
-}
-
-template<typename Ty_>
-void WanderState<Ty_>::AfterEnter()
-{
-}
-
-template<typename Ty_>
-void WanderState<Ty_>::HandleStep()
-{
-}
-
 template<>
 void WanderState<dog>::AfterEnter()
 {
