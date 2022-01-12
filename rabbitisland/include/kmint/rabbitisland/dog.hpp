@@ -66,6 +66,10 @@ namespace kmint::rabbitisland
 
             void UseThirst();
 
+            [[nodiscard]] int TimesDrank() const;
+
+            void Sleep();
+
         private:
             // hoeveel tijd is verstreken sinds de laatste beweging
             delta_time t_passed_{};
@@ -73,6 +77,7 @@ namespace kmint::rabbitisland
             play::image_drawable drawable_;
             bool _isHunting;
             int _thirst;
+            int _timesDrank;
     };
 
 } // namespace kmint
