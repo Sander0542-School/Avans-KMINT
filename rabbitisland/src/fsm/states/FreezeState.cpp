@@ -26,7 +26,6 @@ void FreezeState<misses>::Enter()
 template<>
 void FreezeState<misses>::Exit()
 {
-
 }
 
 template<>
