@@ -6,6 +6,7 @@
 #include "consts.hpp"
 
 #include "fsm/states/WanderState.hpp"
+#include "kmint/rabbitisland/rabbit.hpp"
 
 namespace kmint::rabbitisland
 {
@@ -18,5 +19,19 @@ namespace kmint::rabbitisland
     void misses::act(delta_time dt)
     {
         StateTick(dt);
+    }
+
+    bool misses::IsRabbitNearby() const
+    {
+        for (auto i = begin_perceived(); i != end_perceived(); ++i)
+        {
+            auto const& a = *i;
+            if (auto const* p = dynamic_cast<rabbit const*>(&a); p)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 } // namespace kmint

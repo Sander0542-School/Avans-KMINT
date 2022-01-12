@@ -34,6 +34,22 @@ namespace kmint::rabbitisland
                 return 16.0;
             }
 
+            // geeft aan dat de misses andere actors kan zien
+            [[nodiscard]] bool perceptive() const override
+            {
+                return true;
+            }
+
+            // geeft het bereik aan waarbinnen een misses
+            // andere actors kan waarnemen.
+            [[nodiscard]] scalar perception_range() const override
+            {
+                return 30.f;
+            }
+
+            [[nodiscard]] bool IsRabbitNearby() const;
+
+
         private:
             // hoeveel tijd is verstreken sinds de laatste beweging
             delta_time t_passed_{};
