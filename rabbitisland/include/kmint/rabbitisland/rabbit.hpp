@@ -2,16 +2,18 @@
 #define KMINT_RABBITISLAND_RABBIT_HPP
 
 #include "kmint/play.hpp"
-#include "actors/ForceDrivenActor.hpp"
+#include "actors/GeneticActor.hpp"
 #include <tuple>
 #include <vector>
 
 namespace kmint::rabbitisland
 {
-    class rabbit : public actors::ForceDrivenActor
+    class dog;
+
+    class rabbit : public actors::GeneticActor
     {
         public:
-            rabbit();
+            rabbit(const map::map& map, const dog& dog);
 
             [[nodiscard]] const ui::drawable& drawable() const override
             {
