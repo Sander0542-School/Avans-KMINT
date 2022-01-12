@@ -3,13 +3,13 @@
 
 using namespace fsm::states;
 
-template<>
-void FreezeState<kmint::rabbitisland::mister>::Enter()
+template<typename Ty_>
+void FreezeState<Ty_>::Enter()
 {
     _totalDuration = kmint::from_seconds(0);
 }
 
-template<>
-void FreezeState<kmint::rabbitisland::mister>::Exit()
+template<typename Ty_>
+void FreezeState<Ty_>::Exit()
 {
 }

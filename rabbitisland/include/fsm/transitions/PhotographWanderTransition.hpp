@@ -22,10 +22,10 @@ namespace fsm::transitions
 
             bool Condition(std::shared_ptr<State<Ty_>> from) const override
             {
-                auto photographState = std::dynamic_pointer_cast<states::FreezeState<Ty_>>(from);
-                if (photographState)
+                auto freezeState = std::dynamic_pointer_cast<states::FreezeState<Ty_>>(from);
+                if (freezeState)
                 {
-                    return kmint::to_seconds(photographState->Duration()) >= _duration;
+                    return kmint::to_seconds(freezeState->Duration()) >= _duration;
                 }
 
                 return false;
