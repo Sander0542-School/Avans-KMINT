@@ -1,6 +1,7 @@
 #ifndef KMINT_ASSESSMENT_PATHFINDSTATE_HPP
 #define KMINT_ASSESSMENT_PATHFINDSTATE_HPP
 
+#include "algorithms/AStar.hpp"
 #include "fsm/State.hpp"
 #include "consts.hpp"
 

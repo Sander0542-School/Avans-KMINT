@@ -1,8 +1,6 @@
 #ifndef KMINT_ASSESSMENT_HUNTRABBITSTATE_HPP
 #define KMINT_ASSESSMENT_HUNTRABBITSTATE_HPP
 
-#include "algorithms/AStar.hpp"
-
 #include "fsm/states/PathFindState.hpp"
 
 #include "kmint/rabbitisland/rabbit.hpp"
