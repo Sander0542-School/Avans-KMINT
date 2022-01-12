@@ -16,9 +16,9 @@ namespace fsm::states
             {
             }
 
-            void Enter() override
+            void AfterEnter() override
             {
-                WanderState::Enter();
+                WanderState::AfterEnter();
 //                Data()->SetTint({0, 255, 0, 127});
                 Data()->IsHunting(true);
             }
