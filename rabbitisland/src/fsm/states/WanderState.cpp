@@ -39,3 +39,45 @@ double WanderState<dog>::StepDuration() const
 {
     return Data()->NodeWaitingTime() * Period;
 }
+
+template<>
+void WanderState<mister>::Enter()
+{
+//    Data()->SetTint({0, 255, 0, 127});
+    _timePassed = kmint::from_seconds(0);
+    _totalDuration = kmint::from_seconds(0);
+    _steps = 0;
+}
+
+template<>
+void WanderState<mister>::Exit()
+{
+//    Data()->RemoveTint();
+}
+
+template<>
+double WanderState<mister>::StepDuration() const
+{
+    return Period * MisterWanderSpeed;
+}
+
+template<>
+void WanderState<misses>::Enter()
+{
+//    Data()->SetTint({0, 255, 0, 127});
+    _timePassed = kmint::from_seconds(0);
+    _totalDuration = kmint::from_seconds(0);
+    _steps = 0;
+}
+
+template<>
+void WanderState<misses>::Exit()
+{
+//    Data()->RemoveTint();
+}
+
+template<>
+double WanderState<misses>::StepDuration() const
+{
+    return Period * MissesWanderSpeed;
+}
