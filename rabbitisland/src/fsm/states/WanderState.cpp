@@ -9,6 +9,7 @@ void WanderState<kmint::rabbitisland::mister>::Enter()
 {
 //    Data()->SetTint({0, 255, 0, 127});
     _timePassed = kmint::from_seconds(0);
+    _totalDuration = kmint::from_seconds(0);
     _steps = 0;
 }
 
@@ -23,6 +24,7 @@ void WanderState<kmint::rabbitisland::misses>::Enter()
 {
 //    Data()->SetTint({0, 255, 0, 127});
     _timePassed = kmint::from_seconds(0);
+    _totalDuration = kmint::from_seconds(0);
     _steps = 0;
 }
 

@@ -1,6 +1,8 @@
 #ifndef KMINT_ASSESSMENT_WANDERPHOTOGRAPHTRANSITION_HPP
 #define KMINT_ASSESSMENT_WANDERPHOTOGRAPHTRANSITION_HPP
 
+#include "kmint/primitives.hpp"
+
 #include "fsm/Transition.hpp"
 #include "fsm/states/WanderState.hpp"
 
@@ -10,11 +12,11 @@ namespace fsm::transitions
     class WanderPhotographTransition : public Transition<Ty_>
     {
         private:
-            int _steps;
+            double _duration;
 
         public:
-            explicit WanderPhotographTransition(std::weak_ptr<State<Ty_>> to, int steps = 10) : Transition<Ty_>(to),
-                                                                                          _steps{steps}
+            explicit WanderPhotographTransition(std::weak_ptr<State<Ty_>> to, double duration = 10) : Transition<Ty_>(to),
+                                                                                                _duration{duration}
             {
             }
 
@@ -23,7 +25,7 @@ namespace fsm::transitions
                 auto wanderState = std::dynamic_pointer_cast<states::WanderState<Ty_>>(from);
                 if (wanderState)
                 {
-                    return wanderState->Steps() >= _steps;
+                    return kmint::to_seconds(wanderState->Duration()) >= _duration;
                 }
 
                 return false;

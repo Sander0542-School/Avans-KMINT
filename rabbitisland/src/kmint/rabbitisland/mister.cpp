@@ -6,27 +6,30 @@
 #include "consts.hpp"
 
 #include "fsm/states/WanderState.hpp"
+#include "fsm/states/PhotographState.hpp"
+#include "fsm/transitions/WanderPhotographTransition.hpp"
+#include "fsm/transitions/PhotographWanderTransition.hpp"
 
 namespace kmint::rabbitisland
 {
     mister::mister(map::map_graph& g, map::map_node& initial_node) : play::map_bound_actor{initial_node}, drawable_{*this, graphics::image{mister_image()}}
     {
-        AddState(std::make_shared<fsm::states::WanderState<mister>>(this, [](const mister*) {return Period * MisterWanderSpeed;}));
+        auto wanderState = std::make_shared<fsm::states::WanderState<mister>>(this, Period * MisterWanderSpeed);
+        auto photographState = std::make_shared<fsm::states::PhotographState<mister>>(this, Period);
+
+        AddState(wanderState);
+        AddState(photographState);
+
+        auto wanderPhotographTransition = std::make_shared<fsm::transitions::WanderPhotographTransition<mister>>(photographState, MisterWanderTime * Period);
+        auto photographWanderTransition = std::make_shared<fsm::transitions::PhotographWanderTransition<mister>>(wanderState, MisterPhotographTime * Period);
+        wanderState->AddTransition(wanderPhotographTransition);
+        photographState->AddTransition(photographWanderTransition);
     }
 
 
     void mister::act(delta_time dt)
     {
         StateTick(dt);
-
-//        t_passed_ += dt;
-//        if (to_seconds(t_passed_) >= 2)
-//        {
-//            // pick random edge
-//            int next_index = random_int(0, node().num_edges());
-//            this->node(node()[next_index].to());
-//            t_passed_ = from_seconds(0);
-//        }
     }
 
-} // namespace kmint
+}

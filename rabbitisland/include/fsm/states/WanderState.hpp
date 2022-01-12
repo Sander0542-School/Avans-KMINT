@@ -13,6 +13,7 @@ namespace fsm::states
     {
         private:
             kmint::delta_time _timePassed{};
+            kmint::delta_time _totalDuration{};
             std::function<double(const Ty_*)> _stepDuration;
             int _steps = 0;
 
@@ -22,9 +23,14 @@ namespace fsm::states
             {
             }
 
+            explicit WanderState(Ty_* data, double stepDuration) : WanderState(data, [stepDuration](const Ty_*) {return stepDuration;})
+            {
+            }
+
             void Tick(kmint::delta_time deltaTime) override
             {
                 _timePassed += deltaTime;
+                _totalDuration += deltaTime;
 
                 if (kmint::to_seconds(_timePassed) < StepDuration()) return;
 
@@ -45,11 +51,16 @@ namespace fsm::states
                 return _stepDuration(this->Data());
             }
 
+            kmint::delta_time Duration()
+            {
+                return _totalDuration;
+            }
+
             void Enter() override;
 
             void Exit() override;
 
-            int Steps() const
+            [[nodiscard]] int Steps() const
             {
                 return _steps;
             }
