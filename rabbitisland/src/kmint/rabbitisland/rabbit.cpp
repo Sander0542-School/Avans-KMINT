@@ -2,6 +2,7 @@
 #include "kmint/rabbitisland/dog.hpp"
 #include "kmint/rabbitisland/resources.hpp"
 #include "kmint/random.hpp"
+#include "actors/WaterNodeActor.hpp"
 
 namespace kmint::rabbitisland
 {
@@ -29,6 +30,11 @@ namespace kmint::rabbitisland
             if (auto const* p = dynamic_cast<dog const*>(&a); p && p->IsHunting())
             {
                 std::cout << "See you.." << a.location().x() << ", " << a.location().y() << "\n";
+                alive = false;
+            }
+            if (auto const* p = dynamic_cast<actors::WaterNodeActor const*>(&a); p)
+            {
+                std::cout << "Drowning.." << a.location().x() << ", " << a.location().y() << "\n";
                 alive = false;
             }
         }

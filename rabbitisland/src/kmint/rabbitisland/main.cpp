@@ -7,6 +7,7 @@
 #include "kmint/rabbitisland/resources.hpp"
 #include "kmint/play.hpp"
 #include "kmint/ui.hpp"
+#include "actors/WaterNodeActor.hpp"
 
 using namespace kmint;
 
@@ -27,6 +28,15 @@ int main()
     s.build_actor<play::map_actor>(math::vector2d{0.f, 0.f}, map.graph());
 
     auto secondMap = rabbitisland::SecondMap();
+    std::vector<map::map_node*> waterNodes{secondMap.begin_of_kind('W'), secondMap.end_of_kind('W')};
+    std::vector<map::map_node*> grassNodes{secondMap.begin_of_kind('G'), secondMap.end_of_kind('G')};
+    std::vector<map::map_node*> holeNodes{secondMap.begin_of_kind('H'), secondMap.end_of_kind('H')};
+
+    for (auto it = secondMap.begin_of_kind('W'); it != secondMap.end_of_kind('W'); ++it)
+    {
+        map::map_node& node = **it;
+        s.build_actor<actors::WaterNodeActor>(node);
+    }
 
     for (auto i = 0; i < 100; ++i)
     {
