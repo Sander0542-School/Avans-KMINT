@@ -12,29 +12,17 @@ namespace fsm::states
     class FreezeState : public State<Ty_>
     {
         private:
-            kmint::delta_time _timePassed{};
             kmint::delta_time _totalDuration{};
-            std::function<double(const Ty_*)> _waitDuration;
 
         public:
-            explicit FreezeState(Ty_* data, double waitDuration) : State<Ty_>(data), _waitDuration{[waitDuration](const Ty_*) {return waitDuration;}}
+            explicit FreezeState(Ty_* data) : State<Ty_>(data)
             {
             }
 
             void Tick(kmint::delta_time deltaTime) override
             {
-                _timePassed += deltaTime;
                 _totalDuration += deltaTime;
-
-                if (kmint::to_seconds(_timePassed) < WaitDuration()) return;
-
-                _timePassed = kmint::from_seconds(0);
             };
-
-            double WaitDuration()
-            {
-                return _waitDuration(this->Data());
-            }
 
             kmint::delta_time Duration()
             {

@@ -6,7 +6,6 @@ using namespace fsm::states;
 template<>
 void FreezeState<kmint::rabbitisland::mister>::Enter()
 {
-    _timePassed = kmint::from_seconds(0);
     _totalDuration = kmint::from_seconds(0);
 }
 
