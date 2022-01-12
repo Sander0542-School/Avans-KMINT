@@ -52,6 +52,7 @@ graphics::image dog_image() { return graphics::image{"resources/dog.png"}; }
 graphics::image rabbit_image() { return graphics::image{"resources/rabbit.png"}; }
 graphics::image misses_image() { return graphics::image{"resources/ms.png"}; }
 graphics::image mister_image() { return graphics::image{ "resources/mr.png" }; }
+graphics::image InvisibleImage() { return graphics::image{"resources/invisible.png" }; }
 
 } // namespace rabbitisland
 
