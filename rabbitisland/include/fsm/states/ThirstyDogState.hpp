@@ -16,9 +16,9 @@ namespace fsm::states
 
         public:
             ThirstyDogState(kmint::rabbitisland::dog* data, graph_type& graph, const kmint::rabbitisland::mister* mister, const kmint::rabbitisland::misses* misses) : PathFindState(data, graph),
-                                                                                                                                                           _mister{mister},
-                                                                                                                                                           _misses{misses},
-                                                                                                                                                           _trackingMister(true)
+                                                                                                                                                                       _mister{mister},
+                                                                                                                                                                       _misses{misses},
+                                                                                                                                                                       _trackingMister(true)
             {
             }
 
@@ -26,6 +26,7 @@ namespace fsm::states
             {
                 _trackingMister = containers::Random::NextBool();
 //                Data()->SetTint({0, 255, 0, 127});
+                Data()->IsHunting(false);
             }
 
             void SetTarget() override
