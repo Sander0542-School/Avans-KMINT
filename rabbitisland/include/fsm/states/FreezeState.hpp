@@ -1,5 +1,5 @@
-#ifndef KMINT_ASSESSMENT_PHOTOGRAPHSTATE_HPP
-#define KMINT_ASSESSMENT_PHOTOGRAPHSTATE_HPP
+#ifndef KMINT_ASSESSMENT_FREEZESTATE_HPP
+#define KMINT_ASSESSMENT_FREEZESTATE_HPP
 
 #include "containers/Random.hpp"
 #include "fsm/State.hpp"
@@ -9,7 +9,7 @@
 namespace fsm::states
 {
     template<typename Ty_>
-    class PhotographState : public State<Ty_>
+    class FreezeState : public State<Ty_>
     {
         private:
             kmint::delta_time _timePassed{};
@@ -17,7 +17,7 @@ namespace fsm::states
             std::function<double(const Ty_*)> _waitDuration;
 
         public:
-            explicit PhotographState(Ty_* data, double waitDuration) : State<Ty_>(data), _waitDuration{[waitDuration](const Ty_*) {return waitDuration;}}
+            explicit FreezeState(Ty_* data, double waitDuration) : State<Ty_>(data), _waitDuration{[waitDuration](const Ty_*) {return waitDuration;}}
             {
             }
 
@@ -48,4 +48,4 @@ namespace fsm::states
 }
 
 
-#endif //KMINT_ASSESSMENT_PHOTOGRAPHSTATE_HPP
+#endif //KMINT_ASSESSMENT_FREEZESTATE_HPP

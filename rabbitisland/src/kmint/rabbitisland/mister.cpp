@@ -6,7 +6,7 @@
 #include "consts.hpp"
 
 #include "fsm/states/WanderState.hpp"
-#include "fsm/states/PhotographState.hpp"
+#include "fsm/states/FreezeState.hpp"
 #include "fsm/transitions/WanderPhotographTransition.hpp"
 #include "fsm/transitions/PhotographWanderTransition.hpp"
 
@@ -15,7 +15,7 @@ namespace kmint::rabbitisland
     mister::mister(map::map_graph& g, map::map_node& initial_node) : play::map_bound_actor{initial_node}, drawable_{*this, graphics::image{mister_image()}}
     {
         auto wanderState = std::make_shared<fsm::states::WanderState<mister>>(this);
-        auto photographState = std::make_shared<fsm::states::PhotographState<mister>>(this, Period);
+        auto photographState = std::make_shared<fsm::states::FreezeState<mister>>(this, Period);
 
         AddState(wanderState);
         AddState(photographState);

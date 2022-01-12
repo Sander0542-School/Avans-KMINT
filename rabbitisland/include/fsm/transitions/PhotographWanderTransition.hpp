@@ -4,7 +4,7 @@
 #include "kmint/primitives.hpp"
 
 #include "fsm/Transition.hpp"
-#include "fsm/states/PhotographState.hpp"
+#include "fsm/states/FreezeState.hpp"
 
 namespace fsm::transitions
 {
@@ -22,7 +22,7 @@ namespace fsm::transitions
 
             bool Condition(std::shared_ptr<State<Ty_>> from) const override
             {
-                auto photographState = std::dynamic_pointer_cast<states::PhotographState<Ty_>>(from);
+                auto photographState = std::dynamic_pointer_cast<states::FreezeState<Ty_>>(from);
                 if (photographState)
                 {
                     return kmint::to_seconds(photographState->Duration()) >= _duration;
