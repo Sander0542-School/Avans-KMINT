@@ -20,7 +20,7 @@ namespace fsm::states
             {
                 WanderState::AfterEnter();
 //                Data()->SetTint({0, 255, 0, 127});
-                Data()->IsHunting(true);
+                Data()->IsHunting(false);
             }
 
             void Exit() override
