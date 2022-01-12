@@ -5,7 +5,7 @@
 
 namespace kmint::rabbitisland
 {
-    rabbit::rabbit() : play::free_roaming_actor{random_location()}, drawable_{*this, rabbit_image()}, alive{true}
+    rabbit::rabbit() : movement::ForceDrivenActor{random_location()}, drawable_{*this, rabbit_image()}, alive{true}
     {
     }
 
@@ -16,6 +16,12 @@ namespace kmint::rabbitisland
 
     void rabbit::act(delta_time dt)
     {
+        scalar min{-(RabbitMaxVelocity / 2)};
+        scalar max{(RabbitMaxVelocity / 2)};
+        math::vector2d force{random_scalar(min, max), random_scalar(min, max)};
+
+        ApplyForce(force, dt);
+
         // wanneer een konijn collide met de hond, is het konijn dood
         for (auto i = begin_collision(); i != end_collision(); ++i)
         {
