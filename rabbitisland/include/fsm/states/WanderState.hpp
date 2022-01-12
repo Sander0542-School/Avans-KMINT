@@ -42,9 +42,17 @@ namespace fsm::states
 
             [[nodiscard]] double StepDuration() const;
 
-            void Enter() override;
+            void Enter()
+            {
+                _timePassed = kmint::from_seconds(0);
+                _steps = 0;
+
+                AfterEnter();
+            }
 
             void Exit() override;
+
+            virtual void AfterEnter();
 
             void HandleStep();
 
