@@ -20,7 +20,10 @@ namespace fsm::states
 
             void SetTarget() override
             {
-                if (_target == nullptr || _target->node_info().kind != 'T') _target = &kmint::rabbitisland::find_node_of_kind(_graph, 'T');
+                if (_target == nullptr || _target->node_info().kind != 'T')
+                {
+                    _target = &kmint::rabbitisland::find_node_of_kind(_graph, 'T');
+                }
             }
 
             [[nodiscard]] double NodeWaitingTime() const override
