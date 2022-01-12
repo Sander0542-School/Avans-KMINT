@@ -50,7 +50,16 @@ void WanderState<dog>::HandleStep()
 template<>
 void WanderState<mister>::Exit()
 {
-//    Data()->RemoveTint();
+}
+
+template<>
+void WanderState<mister>::AfterEnter()
+{
+}
+
+template<>
+void WanderState<mister>::HandleStep()
+{
 }
 
 template<>
@@ -62,7 +71,16 @@ double WanderState<mister>::StepDuration() const
 template<>
 void WanderState<misses>::Exit()
 {
-//    Data()->RemoveTint();
+}
+
+template<>
+void WanderState<misses>::AfterEnter()
+{
+}
+
+template<>
+void WanderState<misses>::HandleStep()
+{
 }
 
 template<>

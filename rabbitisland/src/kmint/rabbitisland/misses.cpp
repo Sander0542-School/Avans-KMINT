@@ -4,7 +4,6 @@
 #include "kmint/random.hpp"
 #include "kmint/rabbitisland/rabbit.hpp"
 
-#include "consts.hpp"
 #include "fsm/fsm.hpp"
 
 namespace kmint::rabbitisland
@@ -18,10 +17,10 @@ namespace kmint::rabbitisland
         AddState(wanderState);
         AddState(freezeState);
 
-        auto wanderPhotographTransition = std::make_shared<fsm::transitions::WanderScaredFromBunnyTransition<misses>>(freezeState);
-        auto photographWanderTransition = std::make_shared<fsm::transitions::ScaredFromBunnyWanderTransition<misses>>(wanderState);
-        wanderState->AddTransition(wanderPhotographTransition);
-        freezeState->AddTransition(photographWanderTransition);
+        auto wanderScaredFromBunnyTransition = std::make_shared<fsm::transitions::WanderScaredFromBunnyTransition<misses>>(freezeState);
+        auto scaredFromBunnyWanderTransition = std::make_shared<fsm::transitions::ScaredFromBunnyWanderTransition<misses>>(wanderState);
+        wanderState->AddTransition(wanderScaredFromBunnyTransition);
+        freezeState->AddTransition(scaredFromBunnyWanderTransition);
     }
 
     void misses::act(delta_time dt)

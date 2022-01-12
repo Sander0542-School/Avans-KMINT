@@ -48,7 +48,7 @@ namespace fsm::states
             {
                 return _totalDuration;
             }
-			
+
             void Enter()
             {
                 _timePassed = kmint::from_seconds(0);
@@ -57,7 +57,7 @@ namespace fsm::states
 
                 AfterEnter();
             }
-			
+
             void Exit() override;
 
             virtual void AfterEnter();
