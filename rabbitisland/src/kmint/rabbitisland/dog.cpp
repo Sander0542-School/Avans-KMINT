@@ -62,15 +62,6 @@ namespace kmint::rabbitisland
     {
         StateTick(dt);
 
-//        t_passed_ += dt;
-//        if (to_seconds(t_passed_) >= waiting_time(node()))
-//        {
-//            // pick random edge
-//            int next_index = random_int(0, node().num_edges());
-//            this->node(node()[next_index].to());
-//            t_passed_ = from_seconds(0);
-//        }
-
         // laat ook even zien welke konijntjes hij ruikt
         for (auto i = begin_perceived(); i != end_perceived(); ++i)
         {
