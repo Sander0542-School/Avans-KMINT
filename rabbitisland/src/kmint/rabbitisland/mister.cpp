@@ -22,10 +22,8 @@ namespace kmint::rabbitisland
         photographState->AddTransition(photographWanderTransition);
     }
 
-
     void mister::act(delta_time dt)
     {
         StateTick(dt);
     }
-
 }
