@@ -5,6 +5,7 @@
 #include "kmint/play.hpp"
 #include "kmint/primitives.hpp"
 #include "fsm/StateMachine.hpp"
+#include "kmint/rabbitisland/rabbit.hpp"
 
 namespace kmint::rabbitisland
 {
@@ -47,11 +48,29 @@ namespace kmint::rabbitisland
                 return 100.f;
             }
 
+            [[nodiscard]] double NodeWaitingTime() const;
+
+            [[nodiscard]] int NearbyRabbits() const;
+
+            [[nodiscard]] const rabbit* NearestRabbit() const;
+
+            [[nodiscard]] bool IsHunting() const;
+
+            void IsHunting(bool isHunting);
+
+            [[nodiscard]] int Thirst() const;
+
+            void Drink(int amount);
+
+            void UseThirst();
+
         private:
             // hoeveel tijd is verstreken sinds de laatste beweging
             delta_time t_passed_{};
             // weet hoe de hond getekend moet worden
             play::image_drawable drawable_;
+            bool _isHunting;
+            int _thirst;
     };
 
 } // namespace kmint

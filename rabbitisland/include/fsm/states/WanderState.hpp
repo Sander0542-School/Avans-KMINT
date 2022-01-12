@@ -3,6 +3,7 @@
 
 #include "containers/Random.hpp"
 #include "fsm/State.hpp"
+#include "consts.hpp"
 
 #include "kmint/play.hpp"
 
@@ -14,16 +15,10 @@ namespace fsm::states
         private:
             kmint::delta_time _timePassed{};
             kmint::delta_time _totalDuration{};
-            std::function<double(const Ty_*)> _stepDuration;
             int _steps = 0;
 
         public:
-            explicit WanderState(Ty_* data, std::function<double(const Ty_*)> stepDuration) : State<Ty_>(data),
-                                                                                              _stepDuration{stepDuration}
-            {
-            }
-
-            explicit WanderState(Ty_* data, double stepDuration) : WanderState(data, [stepDuration](const Ty_*) {return stepDuration;})
+            explicit WanderState(Ty_* data) : State<Ty_>(data)
             {
             }
 
@@ -46,10 +41,7 @@ namespace fsm::states
                 _timePassed = kmint::from_seconds(0);
             };
 
-            double StepDuration()
-            {
-                return _stepDuration(this->Data());
-            }
+            [[nodiscard]] double StepDuration() const;
 
             kmint::delta_time Duration()
             {
