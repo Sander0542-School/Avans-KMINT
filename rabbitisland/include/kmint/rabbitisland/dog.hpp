@@ -58,12 +58,19 @@ namespace kmint::rabbitisland
 
             void IsHunting(bool isHunting);
 
+            [[nodiscard]] int Thirst() const;
+
+            void Drink(int amount);
+
+            void UseThirst();
+
         private:
             // hoeveel tijd is verstreken sinds de laatste beweging
             delta_time t_passed_{};
             // weet hoe de hond getekend moet worden
             play::image_drawable drawable_;
             bool _isHunting;
+            int _thirst;
     };
 
 } // namespace kmint

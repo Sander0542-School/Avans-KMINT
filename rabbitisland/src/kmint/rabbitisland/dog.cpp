@@ -121,4 +121,21 @@ namespace kmint::rabbitisland
         _isHunting = isHunting;
     }
 
+    int dog::Thirst() const
+    {
+        return _thirst;
+    }
+
+    void dog::UseThirst()
+    {
+        --_thirst;
+        if (_thirst < 0) _thirst = 0;
+    }
+
+    void dog::Drink(int amount)
+    {
+        _thirst += amount;
+        if (_thirst > 100) _thirst = 100;
+    }
+
 } // namespace kmint
