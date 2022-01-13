@@ -24,7 +24,7 @@ namespace kmint::rabbitisland
 
             [[nodiscard]] scalar perception_range() const override
             {
-                return 50.0f;
+                return 64.0f;
             }
 
             [[nodiscard]] scalar collision_range() const override
