@@ -7,6 +7,8 @@
 #include "kmint/rabbitisland/resources.hpp"
 #include "kmint/play.hpp"
 #include "kmint/ui.hpp"
+#include "actors/WaterNodeActor.hpp"
+#include "actors/HoleNodeActor.hpp"
 
 using namespace kmint;
 
@@ -26,15 +28,30 @@ int main()
     s.build_actor<play::background>(math::size(1024, 768), graphics::image{map.background_image()});
     s.build_actor<play::map_actor>(math::vector2d{0.f, 0.f}, map.graph());
 
+    auto waterMap = rabbitisland::WaterMap();
+    auto& waterGraph = waterMap.graph();
+    auto grassMap = rabbitisland::GrassMap();
+    auto& grassGraph = grassMap.graph();
+    auto holesMap = rabbitisland::HolesMap();
+    auto& holesGraph = holesMap.graph();
 
-    for (auto i = 0; i < 100; ++i)
+    for (const map::map_node& node: waterGraph)
     {
-        s.build_actor<rabbitisland::rabbit>();
+        s.build_actor<actors::WaterNodeActor>(node);
+    }
+    for (const map::map_node& node: holesGraph)
+    {
+        s.build_actor<actors::HoleNodeActor>(node);
     }
 
     auto& mister = s.build_actor<rabbitisland::mister>(graph, rabbitisland::find_node_of_kind(graph, '2'));
     auto& misses = s.build_actor<rabbitisland::misses>(graph, rabbitisland::find_node_of_kind(graph, '3'));
     auto& dog = s.build_actor<rabbitisland::dog>(graph, rabbitisland::find_node_of_kind(graph, '1'), mister, misses);
+
+    for (auto i = 0; i < 100; ++i)
+    {
+        s.build_actor<rabbitisland::rabbit>(waterGraph, grassGraph, holesGraph, dog);
+    }
 
     // Maak een event_source aan (hieruit kun je alle events halen, zoals
     // toetsaanslagen)
