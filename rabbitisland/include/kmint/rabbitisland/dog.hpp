@@ -70,6 +70,8 @@ namespace kmint::rabbitisland
 
             void UseThirst();
 
+            void ThirstRandom();
+
             [[nodiscard]] int TimesDrank() const;
 
             void Sleep();

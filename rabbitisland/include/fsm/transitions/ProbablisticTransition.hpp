@@ -17,7 +17,7 @@ namespace fsm::states
             ChanceFunction _changeFunction;
 
         public:
-            ProbablisticTransition(std::weak_ptr<State<Ty_>> to, double& currentValue, const double& randomValue, const ChanceFunction& chanceFunction) : Transition<Ty_>(to), _currentValue(currentValue), _randomValue(randomValue), _changeFunction{changeFunction}
+            ProbablisticTransition(std::weak_ptr<State<Ty_>> to, double& currentValue, const double& randomValue, const ChanceFunction& chanceFunction) : Transition<Ty_>(to), _currentValue(currentValue), _randomValue(randomValue), _changeFunction{chanceFunction}
             {
             }
 

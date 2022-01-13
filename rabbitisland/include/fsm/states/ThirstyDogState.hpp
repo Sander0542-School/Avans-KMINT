@@ -14,6 +14,7 @@ namespace fsm::states
 
             void Tick(kmint::delta_time deltaTime) override
             {
+                Data()->ThirstRandom();
             }
 
             void Enter() override

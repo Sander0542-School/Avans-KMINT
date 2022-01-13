@@ -172,6 +172,12 @@ namespace kmint::rabbitisland
         if (_thirst > 100) _thirst = 100;
     }
 
+    void dog::ThirstRandom()
+    {
+        _thirstCurrentValue = 0;
+        _thirstRandomValue = kmint::random_scalar(0, 1);
+    }
+
     void dog::Drink(int amount, play::actor* feeder)
     {
         _thirst -= amount;
