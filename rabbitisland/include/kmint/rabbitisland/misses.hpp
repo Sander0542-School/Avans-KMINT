@@ -5,6 +5,7 @@
 #include "kmint/play.hpp"
 #include "kmint/primitives.hpp"
 #include "fsm/StateMachine.hpp"
+#include "dog.hpp"
 
 namespace kmint::rabbitisland
 {
@@ -47,10 +48,16 @@ namespace kmint::rabbitisland
                 return 30.f;
             }
 
+            void set_dog(dog& dog) {
+                _dog = dog;
+            }
+
+
             [[nodiscard]] bool IsRabbitNearby() const;
 
 
         private:
+            dog& _dog;
             // hoeveel tijd is verstreken sinds de laatste beweging
             delta_time t_passed_{};
             // weet hoe de koe getekend moet worden

@@ -9,11 +9,10 @@
 
 namespace kmint::rabbitisland
 {
-
     class mister : public play::map_bound_actor, public fsm::StateMachine<mister>
     {
         public:
-            mister(map::map_graph& g, map::map_node& initial_node, dog& dog);
+            mister(map::map_graph& g, map::map_node& initial_node);
 
             // wordt elke game tick aangeroepen
             void act(delta_time dt) override;
@@ -34,6 +33,10 @@ namespace kmint::rabbitisland
             scalar collision_range() const override
             {
                 return 16.0;
+            }
+
+            void set_dog(dog& dog) {
+                _dog = dog;
             }
 
         private:
