@@ -5,7 +5,7 @@
 
 namespace kmint::rabbitisland
 {
-    rabbit::rabbit(const map::map_graph& waterGraph, const map::map_graph& grassGraph, const map::map_graph& holesGraph, const dog& dog) : actors::GeneticActor(random_location(), waterGraph, grassGraph, holesGraph, dog),
+    rabbit::rabbit(const map::map_graph& waterGraph, const map::map_graph& grassGraph, const map::map_graph& holesGraph, const dog& dog) : actors::GeneticActor<rabbit>(random_location(), waterGraph, grassGraph, holesGraph, dog),
                                                                                                                                            drawable_(*this, rabbit_image()),
                                                                                                                                            alive{true}
     {
@@ -18,7 +18,7 @@ namespace kmint::rabbitisland
 
     void rabbit::act(delta_time dt)
     {
-        actors::GeneticActor::act(dt);
+        actors::GeneticActor<rabbit>::act(dt);
 
         // wanneer een konijn collide met de hond, is het konijn dood
         for (auto i = begin_collision(); i != end_collision(); ++i)

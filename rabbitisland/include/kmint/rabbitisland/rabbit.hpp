@@ -8,7 +8,7 @@
 
 namespace kmint::rabbitisland
 {
-    class rabbit : public actors::GeneticActor
+    class rabbit : public actors::GeneticActor<rabbit>
     {
         public:
             rabbit(const map::map_graph& waterGraph, const map::map_graph& grassGraph, const map::map_graph& holesGraph, const dog& dog);

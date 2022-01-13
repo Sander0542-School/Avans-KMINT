@@ -10,6 +10,7 @@ namespace actors
 {
     using Graph = kmint::map::map_graph;
 
+    template<class Ty_>
     class GeneticActor : public ForceDrivenActor
     {
         private:
@@ -48,11 +49,25 @@ namespace actors
                 ForceDrivenActor::act(dt);
 
                 auto dogVector = (_dog.location() - location()) * attractionDog;
-                auto waterVector = (ClosestNode(_waterGraph) - location()) * attractionDog;
+                auto waterVector = (ClosestNode(_waterGraph) - location()) * attractionWater;
                 auto grassVector = (ClosestNode(_grassGraph) - location()) * attractionGrass;
                 auto holesVector = (ClosestNode(_holesGraph) - location()) * attractionHoles;
+                kmint::math::vector2d cohesionVector{0, 0};
+                kmint::math::vector2d alignmentVector{0, 0};
 
-                auto force = dogVector + waterVector + grassVector + holesVector;
+                for (auto it = begin_perceived(); it != end_perceived(); ++it)
+                {
+                    if (auto const* actor = dynamic_cast<GeneticActor<Ty_> const*>(&*it); actor)
+                    {
+                        cohesionVector += (actor->location() - location());
+                        alignmentVector += actor->_velocity;
+                    }
+                }
+
+                cohesionVector *= cohesion;
+                alignmentVector *= alignment;
+
+                auto force = dogVector + waterVector + grassVector + holesVector + cohesionVector + alignmentVector;
 
                 ApplyForce(force, dt);
             }
