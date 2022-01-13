@@ -4,10 +4,10 @@
 #include "kmint/map/map.hpp"
 #include "kmint/play.hpp"
 #include "kmint/primitives.hpp"
-#include "RabbitManager.hpp"
 #include "fsm/StateMachine.hpp"
 #include "kmint/rabbitisland/misses.hpp"
 #include "kmint/rabbitisland/mister.hpp"
+#include "RabbitManager.hpp"
 
 namespace kmint::rabbitisland
 {

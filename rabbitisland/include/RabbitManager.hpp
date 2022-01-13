@@ -1,30 +1,27 @@
 #ifndef KMINT_ASSESSMENT_RABBITMANAGER_HPP
 #define KMINT_ASSESSMENT_RABBITMANAGER_HPP
 
-#include "kmint/rabbitisland/misses.hpp"
-#include "kmint/rabbitisland/mister.hpp"
-#include "kmint/rabbitisland/rabbit.hpp"
-#include "kmint/rabbitisland/dog.hpp"
-#include "kmint/rabbitisland/node_algorithm.hpp"
-#include "kmint/rabbitisland/resources.hpp"
 #include "kmint/play.hpp"
-#include "kmint/ui.hpp"
 #include "actors/WaterNodeActor.hpp"
 #include "actors/HoleNodeActor.hpp"
+
+namespace kmint::rabbitisland {
+    class dog;
+}
 
 using namespace kmint;
 
 class RabbitManager
 {
     private:
-        kmint::play::stage* _stage;
+        play::stage* _stage;
 
     public:
         explicit RabbitManager(kmint::play::stage* stage) : _stage(stage)
         {
         }
 
-        void SpawnRabbits(rabbitisland::dog& dog)
+        void SpawnRabbits(rabbitisland::dog* dog)
         {
             for (auto i = _stage->begin(); i != _stage->end(); ++i)
             {
