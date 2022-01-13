@@ -9,7 +9,7 @@ namespace actors
 {
     class ForceDrivenActor : public kmint::play::free_roaming_actor
     {
-        private:
+        protected:
             kmint::math::vector2d _velocity{};
 
         public:
