@@ -54,7 +54,7 @@ namespace kmint::rabbitisland
         });
         auto thirstTreeTransition = std::make_shared<LambdaTransition<dog>>(findTreeState, [](const SharedDogState& state) { return state->Data()->TimesDrank() == 2; });
         auto treeFoundSleepTransition = std::make_shared<LambdaTransition<dog>>(sleepState, [](const SharedDogState& state) { return state->Data()->node().node_info().kind == 'T'; });
-        auto sleepWanderTransition = std::make_shared<LambdaTransition<dog>>(wanderState, [](const SharedDogState& state) { return false; });
+        auto sleepWanderTransition = std::make_shared<SleepWanderTransition<dog>>(wanderState);
         auto thirstMisterTransition = std::make_shared<ProbablisticTransition<dog>>(findMisterState, _thirstCurrentValue, _thirstRandomValue, [this, &mister]() { return DrinkChance(&mister); });
         auto thirstMissesTransition = std::make_shared<ProbablisticTransition<dog>>(findMissesState, _thirstCurrentValue, _thirstRandomValue, [this, &misses]() { return DrinkChance(&misses); });
 
@@ -218,7 +218,7 @@ namespace kmint::rabbitisland
     void dog::Sleep()
     {
         _timesDrank = 0;
-        _rabbitManager->SpawnRabbits(this);
+        _rabbitManager->SpawnRabbits(*this);
     }
 
 } // namespace kmint

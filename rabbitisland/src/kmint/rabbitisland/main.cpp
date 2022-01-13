@@ -19,7 +19,6 @@ play::stage stage_{{1024, 768}};;
 
 int main()
 {
-    RabbitManager rabbitManager {&stage_};
     // een app object is nodig om
     ui::app app{};
 
@@ -31,6 +30,15 @@ int main()
     auto& graph = map.graph();
     stage_.build_actor<play::background>(math::size(1024, 768), graphics::image{map.background_image()});
     stage_.build_actor<play::map_actor>(math::vector2d{0.f, 0.f}, map.graph());
+
+    auto waterMap = rabbitisland::WaterMap();
+    auto& waterGraph = waterMap.graph();
+    auto grassMap = rabbitisland::GrassMap();
+    auto& grassGraph = grassMap.graph();
+    auto holesMap = rabbitisland::HolesMap();
+    auto& holesGraph = holesMap.graph();
+
+    RabbitManager rabbitManager{stage_, waterGraph, grassGraph, holesGraph};
 
     auto& mister = stage_.build_actor<rabbitisland::mister>(graph, rabbitisland::find_node_of_kind(graph, '2'));
     auto& misses = stage_.build_actor<rabbitisland::misses>(graph, rabbitisland::find_node_of_kind(graph, '3'));

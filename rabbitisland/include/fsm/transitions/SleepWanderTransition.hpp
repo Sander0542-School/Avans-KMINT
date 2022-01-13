@@ -22,9 +22,8 @@ namespace fsm::transitions
 
                 if (freezeState)
                 {
-                    if (freezeState->Duration() >= DogSleepTime)
+                    if (kmint::to_seconds(freezeState->Duration()) >= DogSleepTime * Period)
                     {
-                        // wake the fuck up lazy ass dog
                         return true;
                     }
                 }

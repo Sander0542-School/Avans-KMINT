@@ -4,8 +4,10 @@
 #include "kmint/play.hpp"
 #include "actors/WaterNodeActor.hpp"
 #include "actors/HoleNodeActor.hpp"
+#include "kmint/rabbitisland/rabbit.hpp"
 
-namespace kmint::rabbitisland {
+namespace kmint::rabbitisland
+{
     class dog;
 }
 
@@ -14,44 +16,44 @@ using namespace kmint;
 class RabbitManager
 {
     private:
-        play::stage* _stage;
+        play::stage& _stage;
+        graph::basic_graph<map::map_node_info>& _waterGraph;
+        graph::basic_graph<map::map_node_info>& _grassGraph;
+        graph::basic_graph<map::map_node_info>& _holesGraph;
 
     public:
-        explicit RabbitManager(kmint::play::stage* stage) : _stage(stage)
+        explicit RabbitManager(play::stage& stage, graph::basic_graph<map::map_node_info>& waterGraph, graph::basic_graph<map::map_node_info>& grassGraph, graph::basic_graph<map::map_node_info>& holesGraph) : _stage(stage),
+                                                                                                                                                                                                                 _waterGraph(waterGraph),
+                                                                                                                                                                                                                 _grassGraph(grassGraph),
+                                                                                                                                                                                                                 _holesGraph(holesGraph)
         {
         }
 
-        void SpawnRabbits(rabbitisland::dog* dog)
+        void SpawnRabbits(play::actor& dog)
         {
-            for (auto i = _stage->begin(); i != _stage->end(); ++i)
+            for (auto i = _stage.begin(); i != _stage.end(); ++i)
             {
-                auto const& a = *i;
+                auto& a = *i;
                 if (auto const* p = dynamic_cast<rabbitisland::rabbit const*>(&a); p)
                 {
-                    _stage->remove_actor(a);
+                    a.remove();
+//                    _stage.remove_actor(a);
                 }
             }
 
-            auto waterMap = rabbitisland::WaterMap();
-            auto& waterGraph = waterMap.graph();
-            auto grassMap = rabbitisland::GrassMap();
-            auto& grassGraph = grassMap.graph();
-            auto holesMap = rabbitisland::HolesMap();
-            auto& holesGraph = holesMap.graph();
-
-            for (const map::map_node& node: waterGraph)
+            for (const map::map_node& node: _waterGraph)
             {
-                _stage->build_actor<actors::WaterNodeActor>(node);
+                _stage.build_actor<actors::WaterNodeActor>(node);
             }
-            for (const map::map_node& node: holesGraph)
+            for (const map::map_node& node: _holesGraph)
             {
-                _stage->build_actor<actors::HoleNodeActor>(node);
+                _stage.build_actor<actors::HoleNodeActor>(node);
             }
 
             // Rabbit Create
             for (auto i = 0; i < 100; ++i)
             {
-                _stage->build_actor<rabbitisland::rabbit>(waterGraph, grassGraph, holesGraph, dog);
+                _stage.build_actor<rabbitisland::rabbit>(_waterGraph, _grassGraph, _holesGraph, dog);
             }
         }
 };
