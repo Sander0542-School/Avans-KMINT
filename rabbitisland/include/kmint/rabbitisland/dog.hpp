@@ -66,6 +66,8 @@ namespace kmint::rabbitisland
 
             void Drink(int amount, play::actor* feeder);
 
+            double DrinkChance(const play::actor* feeder);
+
             void UseThirst();
 
             [[nodiscard]] int TimesDrank() const;
@@ -80,7 +82,9 @@ namespace kmint::rabbitisland
             bool _isHunting;
             int _thirst;
             int _timesDrank;
-            std::map<const play::actor*, std::pair<int, int>> _drinks;
+            std::map<const play::actor*, std::pair<double, double>> _drinks;
+            double _thirstRandomValue;
+            double _thirstCurrentValue;
     };
 
 } // namespace kmint
