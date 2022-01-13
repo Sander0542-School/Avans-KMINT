@@ -5,7 +5,6 @@
 #include "kmint/play.hpp"
 #include "kmint/primitives.hpp"
 #include "fsm/StateMachine.hpp"
-#include "dog.hpp"
 
 namespace kmint::rabbitisland
 {
@@ -35,16 +34,11 @@ namespace kmint::rabbitisland
                 return 16.0;
             }
 
-            void set_dog(dog& dog) {
-                _dog = dog;
-            }
-
         private:
             // hoeveel tijd is verstreken sinds de laatste beweging
             delta_time t_passed_{};
             // weet hoe de koe getekend moet worden
             play::image_drawable drawable_;
-            dog& _dog;
     };
 
 } // namespace kmint

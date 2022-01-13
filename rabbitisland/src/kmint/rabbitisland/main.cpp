@@ -36,9 +36,6 @@ int main()
     auto& misses = s.build_actor<rabbitisland::misses>(graph, rabbitisland::find_node_of_kind(graph, '3'));
     auto& dog = s.build_actor<rabbitisland::dog>(graph, rabbitisland::find_node_of_kind(graph, '1'), mister, misses);
 
-    mister.set_dog(dog);
-    misses.set_dog(dog);
-
     // Maak een event_source aan (hieruit kun je alle events halen, zoals
     // toetsaanslagen)
     ui::events::event_source event_source{};
