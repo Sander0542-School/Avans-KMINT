@@ -5,6 +5,7 @@
 #include "kmint/play.hpp"
 #include "kmint/primitives.hpp"
 #include "fsm/StateMachine.hpp"
+#include "dog.hpp"
 
 namespace kmint::rabbitisland
 {
@@ -12,7 +13,7 @@ namespace kmint::rabbitisland
     class mister : public play::map_bound_actor, public fsm::StateMachine<mister>
     {
         public:
-            mister(map::map_graph& g, map::map_node& initial_node);
+            mister(map::map_graph& g, map::map_node& initial_node, dog& dog);
 
             // wordt elke game tick aangeroepen
             void act(delta_time dt) override;
@@ -40,6 +41,7 @@ namespace kmint::rabbitisland
             delta_time t_passed_{};
             // weet hoe de koe getekend moet worden
             play::image_drawable drawable_;
+            dog& _dog;
     };
 
 } // namespace kmint

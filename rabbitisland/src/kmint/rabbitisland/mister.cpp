@@ -8,7 +8,7 @@
 
 namespace kmint::rabbitisland
 {
-    mister::mister(map::map_graph& g, map::map_node& initial_node) : play::map_bound_actor{initial_node}, drawable_{*this, graphics::image{mister_image()}}
+    mister::mister(map::map_graph& g, map::map_node& initial_node, dog& dog) : play::map_bound_actor{initial_node}, drawable_{*this, graphics::image{mister_image()}}, _dog(dog)
     {
         auto wanderState = std::make_shared<fsm::states::WanderState<mister>>(this);
         auto photographState = std::make_shared<fsm::states::FreezeState<mister>>(this);
