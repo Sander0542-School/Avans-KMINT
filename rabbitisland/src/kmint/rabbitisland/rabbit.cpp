@@ -7,9 +7,9 @@
 namespace kmint::rabbitisland
 {
     rabbit::rabbit(const map::map_graph& waterGraph, const map::map_graph& grassGraph, const map::map_graph& holesGraph, const play::actor& dog) : actors::GeneticActor<rabbit>(random_location(), RabbitMass, RabbitMaxVelocity, waterGraph, grassGraph, holesGraph, dog),
-                                                                                                                                           drawable_(*this, rabbit_image()),
-                                                                                                                                           alive{true},
-                                                                                                                                           _holesGraph(holesGraph)
+                                                                                                                                                   drawable_(*this, rabbit_image()),
+                                                                                                                                                   alive{true},
+                                                                                                                                                   _holesGraph(holesGraph)
     {
     }
 

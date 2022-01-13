@@ -30,11 +30,11 @@ namespace actors
             float alignment;
 
         public:
-            GeneticActor(const kmint::math::vector2d& location, kmint::scalar mass, kmint::scalar maxVelocity, const Graph& waterGraph, const Graph& grassGraph, const Graph& holesGraph, kmint::play::actor& dog) : ForceDrivenActor(location, mass, maxVelocity),
-                                                                                                                                                                                                                     _waterGraph(waterGraph),
-                                                                                                                                                                                                                     _grassGraph(grassGraph),
-                                                                                                                                                                                                                     _holesGraph(holesGraph),
-                                                                                                                                                                                                                     _dog(dog)
+            GeneticActor(const kmint::math::vector2d& location, kmint::scalar mass, kmint::scalar maxVelocity, const Graph& waterGraph, const Graph& grassGraph, const Graph& holesGraph, const kmint::play::actor& dog) : ForceDrivenActor(location, mass, maxVelocity),
+                                                                                                                                                                                                                           _waterGraph(waterGraph),
+                                                                                                                                                                                                                           _grassGraph(grassGraph),
+                                                                                                                                                                                                                           _holesGraph(holesGraph),
+                                                                                                                                                                                                                           _dog(dog)
             {
                 attractionDog = kmint::random_scalar(-1, 1);
                 attractionWater = kmint::random_scalar(-1, 1);
