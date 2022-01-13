@@ -2,23 +2,53 @@
 #include "kmint/rabbitisland/node_algorithm.hpp"
 #include "kmint/rabbitisland/resources.hpp"
 #include "kmint/random.hpp"
+#include "kmint/rabbitisland/rabbit.hpp"
 
-namespace kmint {
-namespace rabbitisland {
-  misses::misses(map::map_graph& g, map::map_node& initial_node)
-    : play::map_bound_actor{ initial_node },
-      drawable_{ *this, graphics::image{misses_image()} } {}
+#include "fsm/fsm.hpp"
 
+namespace kmint::rabbitisland
+{
+    misses::misses(map::map_graph& g, map::map_node& initial_node) : play::map_bound_actor{initial_node},
+                                                                     drawable_{*this, graphics::image{misses_image()}}
+    {
+        auto wanderState = std::make_shared<fsm::states::WanderState<misses>>(this);
+        auto freezeState = std::make_shared<fsm::states::FreezeState<misses>>(this);
 
-  void misses::act(delta_time dt) {
-    t_passed_ += dt;
-    if (to_seconds(t_passed_) >= 2) {
-      // pick random edge
-      int next_index = random_int(0, node().num_edges());
-      this->node(node()[next_index].to());
-      t_passed_ = from_seconds(0);
+        AddState(wanderState);
+        AddState(freezeState);
+
+        auto wanderScaredFromBunnyTransition = std::make_shared<fsm::transitions::WanderScaredFromBunnyTransition<misses>>(freezeState);
+        auto scaredFromBunnyWanderTransition = std::make_shared<fsm::transitions::ScaredFromBunnyWanderTransition<misses>>(wanderState);
+        wanderState->AddTransition(wanderScaredFromBunnyTransition);
+        freezeState->AddTransition(scaredFromBunnyWanderTransition);
     }
-  }
 
-} // namespace rabbitisland
+    void misses::act(delta_time dt)
+    {
+        StateTick(dt);
+
+        for (auto i = begin_collision(); i != end_collision(); ++i)
+        {
+            if (auto* p = dynamic_cast<dog*>(&*i); p && p->Thirst() == 100)
+            {
+                const auto water = random_int(10, 80);
+                p->Drink(water);
+                std::cout << "Misses is feeding dog.. (" << water << ")\n";
+            }
+        }
+    }
+
+    bool misses::IsRabbitNearby() const
+    {
+        for (auto i = begin_perceived(); i != end_perceived(); ++i)
+        {
+            auto const& a = *i;
+            if (auto const* p = dynamic_cast<rabbit const*>(&a); p)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 } // namespace kmint

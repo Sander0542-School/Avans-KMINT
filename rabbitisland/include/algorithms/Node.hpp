@@ -1,5 +1,5 @@
-#ifndef KMINTAPP_NODE_HPP
-#define KMINTAPP_NODE_HPP
+#ifndef KMINT_ASSESSMENT_NODE_HPP
+#define KMINT_ASSESSMENT_NODE_HPP
 
 #include <stdexcept>
 
@@ -33,4 +33,4 @@ namespace algorithms
     };
 }
 
-#endif //KMINTAPP_NODE_HPP
+#endif //KMINT_ASSESSMENT_NODE_HPP

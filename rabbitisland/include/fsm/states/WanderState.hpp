@@ -1,5 +1,5 @@
-#ifndef KMINTAPP_WANDERSTATE_HPP
-#define KMINTAPP_WANDERSTATE_HPP
+#ifndef KMINT_ASSESSMENT_WANDERSTATE_HPP
+#define KMINT_ASSESSMENT_WANDERSTATE_HPP
 
 #include "containers/Random.hpp"
 #include "fsm/State.hpp"
@@ -14,6 +14,7 @@ namespace fsm::states
     {
         private:
             kmint::delta_time _timePassed{};
+            kmint::delta_time _totalDuration{};
             int _steps = 0;
 
         public:
@@ -24,6 +25,7 @@ namespace fsm::states
             void Tick(kmint::delta_time deltaTime) override
             {
                 _timePassed += deltaTime;
+                _totalDuration += deltaTime;
 
                 if (kmint::to_seconds(_timePassed) < StepDuration()) return;
 
@@ -42,9 +44,15 @@ namespace fsm::states
 
             [[nodiscard]] double StepDuration() const;
 
+            kmint::delta_time Duration()
+            {
+                return _totalDuration;
+            }
+
             void Enter()
             {
                 _timePassed = kmint::from_seconds(0);
+                _totalDuration = kmint::from_seconds(0);
                 _steps = 0;
 
                 AfterEnter();
@@ -63,4 +71,4 @@ namespace fsm::states
     };
 }
 
-#endif //KMINTAPP_WANDERSTATE_HPP
+#endif //KMINT_ASSESSMENT_WANDERSTATE_HPP

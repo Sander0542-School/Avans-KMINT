@@ -1,5 +1,5 @@
-#ifndef KMINTAPP_ASTAR_HPP
-#define KMINTAPP_ASTAR_HPP
+#ifndef KMINT_ASSESSMENT_ASTAR_HPP
+#define KMINT_ASSESSMENT_ASTAR_HPP
 
 #include "algorithms/PathAlgo.hpp"
 
@@ -21,4 +21,4 @@ namespace algorithms
     };
 }
 
-#endif //KMINTAPP_ASTAR_HPP
+#endif //KMINT_ASSESSMENT_ASTAR_HPP

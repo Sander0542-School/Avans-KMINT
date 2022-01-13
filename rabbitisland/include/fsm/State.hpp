@@ -1,5 +1,5 @@
-#ifndef KMINTAPP_STATE_HPP
-#define KMINTAPP_STATE_HPP
+#ifndef KMINT_ASSESSMENT_STATE_HPP
+#define KMINT_ASSESSMENT_STATE_HPP
 
 #include "Transition.hpp"
 
@@ -44,4 +44,4 @@ namespace fsm
     };
 }
 
-#endif //KMINTAPP_STATE_HPP
+#endif //KMINT_ASSESSMENT_STATE_HPP
