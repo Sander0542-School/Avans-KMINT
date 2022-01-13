@@ -34,10 +34,9 @@ class RabbitManager
             for (auto i = _stage.begin(); i != _stage.end(); ++i)
             {
                 auto& a = *i;
-                if (auto const* p = dynamic_cast<rabbitisland::rabbit const*>(&a); p)
+                if (auto* p = dynamic_cast<rabbitisland::rabbit*>(&a); p)
                 {
-                    a.remove();
-//                    _stage.remove_actor(a);
+                    p->Kill();
                 }
             }
 
