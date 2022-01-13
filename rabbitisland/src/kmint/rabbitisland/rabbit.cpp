@@ -6,10 +6,10 @@
 
 namespace kmint::rabbitisland
 {
-    rabbit::rabbit(const map::map_graph& waterGraph, const map::map_graph& grassGraph, const map::map_graph& holesGraph, const dog& dog) : actors::GeneticActor<rabbit>(random_location(), RabbitMass, RabbitMaxVelocity, waterGraph, grassGraph, holesGraph, dog),
-                                                                                                                                           drawable_(*this, rabbit_image()),
-                                                                                                                                           alive{true},
-                                                                                                                                           _holesGraph(holesGraph)
+    rabbit::rabbit(const map::map_graph& waterGraph, const map::map_graph& grassGraph, const map::map_graph& holesGraph, const play::actor& dog) : actors::GeneticActor<rabbit>(random_location(), RabbitMass, RabbitMaxVelocity, waterGraph, grassGraph, holesGraph, dog),
+                                                                                                                                                   drawable_(*this, rabbit_image()),
+                                                                                                                                                   alive{true},
+                                                                                                                                                   _holesGraph(holesGraph)
     {
     }
 
@@ -22,15 +22,9 @@ namespace kmint::rabbitisland
     {
         actors::GeneticActor<rabbit>::act(dt);
 
-        // wanneer een konijn collide met de hond, is het konijn dood
         for (auto i = begin_collision(); i != end_collision(); ++i)
         {
             auto const& a = *i;
-            if (auto const* p = dynamic_cast<dog const*>(&a); p && p->IsHunting())
-            {
-                std::cout << "See you.." << a.location().x() << ", " << a.location().y() << "\n";
-                alive = false;
-            }
             if (auto const* p = dynamic_cast<actors::WaterNodeActor const*>(&a); p)
             {
                 std::cout << "Drowning.." << a.location().x() << ", " << a.location().y() << "\n";

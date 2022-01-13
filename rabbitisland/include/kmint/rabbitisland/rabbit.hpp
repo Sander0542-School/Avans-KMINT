@@ -11,7 +11,7 @@ namespace kmint::rabbitisland
     class rabbit : public actors::GeneticActor<rabbit>
     {
         public:
-            rabbit(const map::map_graph& waterGraph, const map::map_graph& grassGraph, const map::map_graph& holesGraph, const dog& dog);
+            rabbit(const map::map_graph& waterGraph, const map::map_graph& grassGraph, const map::map_graph& holesGraph, const play::actor& dog);
 
             [[nodiscard]] const ui::drawable& drawable() const override
             {
@@ -50,6 +50,11 @@ namespace kmint::rabbitisland
             [[nodiscard]] bool perceptive() const override
             {
                 return alive;
+            }
+
+            void Kill()
+            {
+                alive = false;
             }
 
         private:

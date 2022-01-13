@@ -1,5 +1,6 @@
 #include "LambdaTransition.hpp"
 #include "PhotographWanderTransition.hpp"
+#include "ProbablisticTransition.hpp"
 #include "ScaredFromBunnyWanderTransition.hpp"
 #include "WanderScaredFromBunnyTransition.hpp"
 #include "WanderHuntTransition.hpp"
