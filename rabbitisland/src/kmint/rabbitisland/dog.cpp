@@ -19,11 +19,12 @@ namespace kmint::rabbitisland
     using DogState = fsm::State<dog>;
     using SharedDogState = std::shared_ptr<DogState>;
 
-    dog::dog(map::map_graph& g, map::map_node& initial_node, const mister& mister, const misses& misses) : play::map_bound_actor(initial_node),
+    dog::dog(map::map_graph& g, map::map_node& initial_node, const mister& mister, const misses& misses, RabbitManager* rabbitManager) : play::map_bound_actor(initial_node),
                                                                                                            drawable_(*this, graphics::image(dog_image())),
                                                                                                            _isHunting(true),
                                                                                                            _thirst(0),
-                                                                                                           _timesDrank(0)
+                                                                                                           _timesDrank(0),
+                                                                                                           _rabbitManager(rabbitManager)
     {
         auto wanderState = std::make_shared<WanderState<dog>>(this);
         auto huntState = std::make_shared<HuntRabbitState>(this, g);
@@ -155,6 +156,7 @@ namespace kmint::rabbitisland
     void dog::Sleep()
     {
         _timesDrank = 0;
+        _rabbitManager->SpawnRabbits(this);
     }
 
 } // namespace kmint

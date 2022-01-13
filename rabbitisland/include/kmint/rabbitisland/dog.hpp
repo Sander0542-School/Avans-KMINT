@@ -4,6 +4,7 @@
 #include "kmint/map/map.hpp"
 #include "kmint/play.hpp"
 #include "kmint/primitives.hpp"
+#include "RabbitManager.hpp"
 #include "fsm/StateMachine.hpp"
 #include "kmint/rabbitisland/misses.hpp"
 #include "kmint/rabbitisland/mister.hpp"
@@ -15,7 +16,7 @@ namespace kmint::rabbitisland
     class dog : public play::map_bound_actor, public fsm::StateMachine<dog>
     {
         public:
-            dog(map::map_graph& g, map::map_node& initial_node, const mister& mister, const misses& misses);
+            dog(map::map_graph& g, map::map_node& initial_node, const mister& mister, const misses& misses, RabbitManager* rabbitManager);
 
             // wordt elke game tick aangeroepen
             void act(delta_time dt) override;
@@ -79,6 +80,7 @@ namespace kmint::rabbitisland
             bool _isHunting;
             int _thirst;
             int _timesDrank;
+            RabbitManager* _rabbitManager;
     };
 
 } // namespace kmint

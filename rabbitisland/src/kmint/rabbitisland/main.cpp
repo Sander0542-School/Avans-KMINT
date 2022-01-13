@@ -9,11 +9,17 @@
 #include "kmint/ui.hpp"
 #include "actors/WaterNodeActor.hpp"
 #include "actors/HoleNodeActor.hpp"
+#include "RabbitManager.hpp"
 
 using namespace kmint;
 
+play::stage stage_{{1024, 768}};;
+
+
+
 int main()
 {
+    RabbitManager rabbitManager {&stage_};
     // een app object is nodig om
     ui::app app{};
 
@@ -21,44 +27,23 @@ int main()
     ui::window window{app.create_window({1024, 768}, "rabbitisland", 1.0)};
 
     // maak een podium aan
-    play::stage s{{1024, 768}};
-
     auto map = rabbitisland::map();
     auto& graph = map.graph();
-    s.build_actor<play::background>(math::size(1024, 768), graphics::image{map.background_image()});
-    s.build_actor<play::map_actor>(math::vector2d{0.f, 0.f}, map.graph());
+    stage_.build_actor<play::background>(math::size(1024, 768), graphics::image{map.background_image()});
+    stage_.build_actor<play::map_actor>(math::vector2d{0.f, 0.f}, map.graph());
 
-    auto waterMap = rabbitisland::WaterMap();
-    auto& waterGraph = waterMap.graph();
-    auto grassMap = rabbitisland::GrassMap();
-    auto& grassGraph = grassMap.graph();
-    auto holesMap = rabbitisland::HolesMap();
-    auto& holesGraph = holesMap.graph();
+    auto& mister = stage_.build_actor<rabbitisland::mister>(graph, rabbitisland::find_node_of_kind(graph, '2'));
+    auto& misses = stage_.build_actor<rabbitisland::misses>(graph, rabbitisland::find_node_of_kind(graph, '3'));
+    auto& dog = stage_.build_actor<rabbitisland::dog>(graph, rabbitisland::find_node_of_kind(graph, '1'), mister, misses, &rabbitManager);
 
-    for (const map::map_node& node: waterGraph)
-    {
-        s.build_actor<actors::WaterNodeActor>(node);
-    }
-    for (const map::map_node& node: holesGraph)
-    {
-        s.build_actor<actors::HoleNodeActor>(node);
-    }
-
-    auto& mister = s.build_actor<rabbitisland::mister>(graph, rabbitisland::find_node_of_kind(graph, '2'));
-    auto& misses = s.build_actor<rabbitisland::misses>(graph, rabbitisland::find_node_of_kind(graph, '3'));
-    auto& dog = s.build_actor<rabbitisland::dog>(graph, rabbitisland::find_node_of_kind(graph, '1'), mister, misses);
-
-    for (auto i = 0; i < 100; ++i)
-    {
-        s.build_actor<rabbitisland::rabbit>(waterGraph, grassGraph, holesGraph, dog);
-    }
+    rabbitManager.SpawnRabbits(dog);
 
     // Maak een event_source aan (hieruit kun je alle events halen, zoals
     // toetsaanslagen)
     ui::events::event_source event_source{};
 
     // main_loop stuurt alle actors aan.
-    main_loop(s, window, [&](delta_time dt, loop_controls& ctl) {
+    main_loop(stage_, window, [&](delta_time dt, loop_controls& ctl) {
         // gebruik dt om te kijken hoeveel tijd versterken is
         // sinds de vorige keer dat deze lambda werd aangeroepen
         // loop controls is een object met eigenschappen die je kunt gebruiken om de
