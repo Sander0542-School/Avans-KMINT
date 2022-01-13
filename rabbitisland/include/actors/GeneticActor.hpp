@@ -2,8 +2,8 @@
 #define KMINT_ASSESSMENT_GENETICACTOR_HPP
 
 #include "kmint/random.hpp"
+#include "kmint/play.hpp"
 #include "kmint/rabbitisland/node_algorithm.hpp"
-#include "kmint/rabbitisland/dog.hpp"
 #include "ForceDrivenActor.hpp"
 #include "WaterNodeActor.hpp"
 
@@ -18,7 +18,7 @@ namespace actors
             const Graph& _waterGraph;
             const Graph& _grassGraph;
             const Graph& _holesGraph;
-            const kmint::rabbitisland::dog& _dog;
+            const kmint::play::actor& _dog;
 
         protected:
             float attractionDog;
@@ -30,11 +30,11 @@ namespace actors
             float alignment;
 
         public:
-            GeneticActor(const kmint::math::vector2d& location, kmint::scalar mass, kmint::scalar maxVelocity, const Graph& waterGraph, const Graph& grassGraph, const Graph& holesGraph, const kmint::rabbitisland::dog& dog) : ForceDrivenActor(location, mass, maxVelocity),
-                                                                                                                                                                                                                                 _waterGraph(waterGraph),
-                                                                                                                                                                                                                                 _grassGraph(grassGraph),
-                                                                                                                                                                                                                                 _holesGraph(holesGraph),
-                                                                                                                                                                                                                                 _dog(dog)
+            GeneticActor(const kmint::math::vector2d& location, kmint::scalar mass, kmint::scalar maxVelocity, const Graph& waterGraph, const Graph& grassGraph, const Graph& holesGraph, kmint::play::actor& dog) : ForceDrivenActor(location, mass, maxVelocity),
+                                                                                                                                                                                                                     _waterGraph(waterGraph),
+                                                                                                                                                                                                                     _grassGraph(grassGraph),
+                                                                                                                                                                                                                     _holesGraph(holesGraph),
+                                                                                                                                                                                                                     _dog(dog)
             {
                 attractionDog = kmint::random_scalar(-1, 1);
                 attractionWater = kmint::random_scalar(-1, 1);

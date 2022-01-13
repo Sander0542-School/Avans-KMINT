@@ -93,6 +93,19 @@ namespace kmint::rabbitisland
     void dog::act(delta_time dt)
     {
         StateTick(dt);
+
+        if (IsHunting())
+        {
+            for (auto i = begin_collision(); i != end_collision(); ++i)
+            {
+                auto& a = *i;
+                if (auto* p = dynamic_cast<rabbit*>(&a); p)
+                {
+                    std::cout << "See you.." << a.location().x() << ", " << a.location().y() << "\n";
+                    p->Kill();
+                }
+            }
+        }
     }
 
     double dog::NodeWaitingTime() const
