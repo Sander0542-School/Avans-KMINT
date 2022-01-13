@@ -74,16 +74,6 @@ namespace kmint::rabbitisland
     void dog::act(delta_time dt)
     {
         StateTick(dt);
-
-        // laat ook even zien welke konijntjes hij ruikt
-        for (auto i = begin_perceived(); i != end_perceived(); ++i)
-        {
-            auto const& a = *i;
-            if (auto const* p = dynamic_cast<rabbit const*>(&a); p)
-            {
-                std::cout << "Smelled something at " << a.location().x() << ", " << a.location().y() << "\n";
-            }
-        }
     }
 
     double dog::NodeWaitingTime() const
@@ -117,7 +107,7 @@ namespace kmint::rabbitisland
             auto const& a = *i;
             if (auto const* p = dynamic_cast<rabbit const*>(&a); p)
             {
-                auto nDistance = distance2(location(), p->location());
+                auto nDistance = math::distance(location(), p->location());
                 if (nDistance < distance)
                 {
                     distance = nDistance;
