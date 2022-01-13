@@ -1,3 +1,4 @@
+#include "FindActorState.hpp"
 #include "FindTreeState.hpp"
 #include "PathFindState.hpp"
 #include "FreezeState.hpp"

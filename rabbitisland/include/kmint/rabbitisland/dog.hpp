@@ -8,6 +8,7 @@
 #include "kmint/rabbitisland/misses.hpp"
 #include "kmint/rabbitisland/mister.hpp"
 #include "RabbitManager.hpp"
+#include <map>
 
 namespace kmint::rabbitisland
 {
@@ -64,9 +65,13 @@ namespace kmint::rabbitisland
 
             [[nodiscard]] int Thirst() const;
 
-            void Drink(int amount);
+            void Drink(int amount, play::actor* feeder);
+
+            double DrinkChance(const play::actor* feeder);
 
             void UseThirst();
+
+            void ThirstRandom();
 
             [[nodiscard]] int TimesDrank() const;
 
@@ -81,6 +86,9 @@ namespace kmint::rabbitisland
             int _thirst;
             int _timesDrank;
             RabbitManager* _rabbitManager;
+            std::map<const play::actor*, std::pair<double, double>> _drinks;
+            double _thirstRandomValue;
+            double _thirstCurrentValue;
     };
 
 } // namespace kmint
