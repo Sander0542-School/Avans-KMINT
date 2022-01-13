@@ -25,5 +25,15 @@ namespace kmint::rabbitisland
     void mister::act(delta_time dt)
     {
         StateTick(dt);
+
+        for (auto i = begin_collision(); i != end_collision(); ++i)
+        {
+            if (auto* p = dynamic_cast<dog*>(&*i); p && p->Thirst() == 100)
+            {
+                const auto water = random_int(30, 50);
+                p->Drink(water);
+                std::cout << "Mister is feeding dog.. (" << water << ")\n";
+            }
+        }
     }
 }

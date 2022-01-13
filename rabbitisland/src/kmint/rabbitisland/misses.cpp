@@ -26,6 +26,16 @@ namespace kmint::rabbitisland
     void misses::act(delta_time dt)
     {
         StateTick(dt);
+
+        for (auto i = begin_collision(); i != end_collision(); ++i)
+        {
+            if (auto* p = dynamic_cast<dog*>(&*i); p && p->Thirst() == 100)
+            {
+                const auto water = random_int(10, 80);
+                p->Drink(water);
+                std::cout << "Misses is feeding dog.. (" << water << ")\n";
+            }
+        }
     }
 
     bool misses::IsRabbitNearby() const
