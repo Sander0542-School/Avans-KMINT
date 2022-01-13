@@ -3,6 +3,7 @@
 
 #include "fsm/states/PathFindState.hpp"
 #include "algorithms/Node.hpp"
+#include "kmint/rabbitisland/dog.hpp"
 
 namespace fsm::states
 {
