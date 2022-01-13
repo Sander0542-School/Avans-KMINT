@@ -55,6 +55,7 @@ namespace kmint::rabbitisland
         private:
             play::image_drawable drawable_;
             bool alive;
+            const kmint::map::map_graph& _holesGraph;
     };
 }
 

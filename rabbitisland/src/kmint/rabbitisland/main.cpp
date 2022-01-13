@@ -8,6 +8,7 @@
 #include "kmint/play.hpp"
 #include "kmint/ui.hpp"
 #include "actors/WaterNodeActor.hpp"
+#include "actors/HoleNodeActor.hpp"
 
 using namespace kmint;
 
@@ -37,6 +38,10 @@ int main()
     for (const map::map_node& node: waterGraph)
     {
         s.build_actor<actors::WaterNodeActor>(node);
+    }
+    for (const map::map_node& node: holesGraph)
+    {
+        s.build_actor<actors::HoleNodeActor>(node);
     }
 
     auto& mister = s.build_actor<rabbitisland::mister>(graph, rabbitisland::find_node_of_kind(graph, '2'));

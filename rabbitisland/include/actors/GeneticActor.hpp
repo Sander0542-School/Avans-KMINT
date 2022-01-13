@@ -5,6 +5,7 @@
 #include "kmint/rabbitisland/node_algorithm.hpp"
 #include "kmint/rabbitisland/dog.hpp"
 #include "ForceDrivenActor.hpp"
+#include "WaterNodeActor.hpp"
 
 namespace actors
 {
@@ -29,11 +30,11 @@ namespace actors
             float alignment;
 
         public:
-            GeneticActor(const kmint::math::vector2d& location, const Graph& waterGraph, const Graph& grassGraph, const Graph& holesGraph, const kmint::rabbitisland::dog& dog) : ForceDrivenActor(location),
-                                                                                                                                                                                  _waterGraph(waterGraph),
-                                                                                                                                                                                  _grassGraph(grassGraph),
-                                                                                                                                                                                  _holesGraph(holesGraph),
-                                                                                                                                                                                  _dog(dog)
+            GeneticActor(const kmint::math::vector2d& location, kmint::scalar mass, kmint::scalar maxVelocity, const Graph& waterGraph, const Graph& grassGraph, const Graph& holesGraph, const kmint::rabbitisland::dog& dog) : ForceDrivenActor(location, mass, maxVelocity),
+                                                                                                                                                                                                                                 _waterGraph(waterGraph),
+                                                                                                                                                                                                                                 _grassGraph(grassGraph),
+                                                                                                                                                                                                                                 _holesGraph(holesGraph),
+                                                                                                                                                                                                                                 _dog(dog)
             {
                 attractionDog = kmint::random_scalar(-1, 1);
                 attractionWater = kmint::random_scalar(-1, 1);
@@ -49,9 +50,10 @@ namespace actors
                 ForceDrivenActor::act(dt);
 
                 auto dogVector = (_dog.location() - location()) * attractionDog;
-                auto waterVector = (ClosestNode(_waterGraph) - location()) * attractionWater;
+//                auto waterVector = (ClosestNode(_waterGraph) - location()) * attractionWater;
                 auto grassVector = (ClosestNode(_grassGraph) - location()) * attractionGrass;
                 auto holesVector = (ClosestNode(_holesGraph) - location()) * attractionHoles;
+                kmint::math::vector2d waterVector{0, 0};
                 kmint::math::vector2d cohesionVector{0, 0};
                 kmint::math::vector2d alignmentVector{0, 0};
 
@@ -62,12 +64,24 @@ namespace actors
                         cohesionVector += (actor->location() - location());
                         alignmentVector += actor->_velocity;
                     }
+                    if (auto const* water = dynamic_cast<WaterNodeActor const*>(&*it); water)
+                    {
+                        waterVector += (water->location() - location());
+                    }
                 }
 
+                waterVector *= attractionWater;
                 cohesionVector *= cohesion;
                 alignmentVector *= alignment;
 
-                auto force = dogVector + waterVector + grassVector + holesVector + cohesionVector + alignmentVector;
+                kmint::math::vector2d force{0, 0};
+
+                force += (dogVector);
+                force += (waterVector) * 15;
+                force += (grassVector) * 1;
+                force += (holesVector) * 3;
+                force += (cohesionVector) * 1;
+                force += (alignmentVector) * 0.5;
 
                 ApplyForce(force, dt);
             }
