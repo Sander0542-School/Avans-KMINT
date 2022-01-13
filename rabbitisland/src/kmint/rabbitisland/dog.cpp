@@ -23,8 +23,12 @@ namespace kmint::rabbitisland
                                                                                                            drawable_(*this, graphics::image(dog_image())),
                                                                                                            _isHunting(true),
                                                                                                            _thirst(0),
-                                                                                                           _timesDrank(0)
+                                                                                                           _timesDrank(0),
+                                                                                                           _drinks{}
     {
+        _drinks.emplace(&mister, std::make_pair(0, 0));
+        _drinks.emplace(&misses, std::make_pair(0, 0));
+
         auto wanderState = std::make_shared<WanderState<dog>>(this);
         auto huntState = std::make_shared<HuntRabbitState>(this, g);
         auto scaredState = std::make_shared<ScaredDogState>(this);
@@ -140,11 +144,14 @@ namespace kmint::rabbitisland
         if (_thirst > 100) _thirst = 100;
     }
 
-    void dog::Drink(int amount)
+    void dog::Drink(int amount, play::actor* feeder)
     {
         _thirst -= amount;
         if (_thirst < 0) _thirst = 0;
         ++_timesDrank;
+
+        _drinks[feeder].first++;
+        _drinks[feeder].second += amount;
     }
 
     int dog::TimesDrank() const

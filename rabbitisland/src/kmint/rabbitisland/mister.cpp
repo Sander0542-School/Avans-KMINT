@@ -31,7 +31,7 @@ namespace kmint::rabbitisland
             if (auto* p = dynamic_cast<dog*>(&*i); p && p->Thirst() == 100)
             {
                 const auto water = random_int(30, 50);
-                p->Drink(water);
+                p->Drink(water, this);
                 std::cout << "Mister is feeding dog.. (" << water << ")\n";
             }
         }

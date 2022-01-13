@@ -7,6 +7,7 @@
 #include "fsm/StateMachine.hpp"
 #include "kmint/rabbitisland/misses.hpp"
 #include "kmint/rabbitisland/mister.hpp"
+#include <map>
 
 namespace kmint::rabbitisland
 {
@@ -63,7 +64,7 @@ namespace kmint::rabbitisland
 
             [[nodiscard]] int Thirst() const;
 
-            void Drink(int amount);
+            void Drink(int amount, play::actor* feeder);
 
             void UseThirst();
 
@@ -79,6 +80,7 @@ namespace kmint::rabbitisland
             bool _isHunting;
             int _thirst;
             int _timesDrank;
+            std::map<const play::actor*, std::pair<int, int>> _drinks;
     };
 
 } // namespace kmint
