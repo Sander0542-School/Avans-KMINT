@@ -11,7 +11,7 @@ namespace kmint::rabbitisland
     class rabbit : public actors::GeneticActor<rabbit>
     {
         public:
-            rabbit(const map::map_graph& waterGraph, const map::map_graph& grassGraph, const map::map_graph& holesGraph, const play::actor& dog);
+            rabbit(const play::actor& dog);
 
             [[nodiscard]] const ui::drawable& drawable() const override
             {
@@ -21,11 +21,6 @@ namespace kmint::rabbitisland
             math::vector2d random_location();
 
             void act(delta_time dt) override;
-
-            [[nodiscard]] scalar perception_range() const override
-            {
-                return 64.0f;
-            }
 
             [[nodiscard]] scalar collision_range() const override
             {
@@ -60,7 +55,6 @@ namespace kmint::rabbitisland
         private:
             play::image_drawable drawable_;
             bool alive;
-            const kmint::map::map_graph& _holesGraph;
     };
 }
 

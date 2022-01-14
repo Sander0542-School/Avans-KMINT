@@ -9,13 +9,12 @@
 #include "kmint/ui.hpp"
 #include "actors/WaterNodeActor.hpp"
 #include "actors/HoleNodeActor.hpp"
+#include "actors/GrassNodeActor.hpp"
 #include "RabbitManager.hpp"
 
 using namespace kmint;
 
 play::stage stage_{{1024, 768}};;
-
-
 
 int main()
 {
@@ -39,6 +38,19 @@ int main()
     auto& holesGraph = holesMap.graph();
 
     RabbitManager rabbitManager{stage_, waterGraph, grassGraph, holesGraph};
+
+    for (const map::map_node& node: waterGraph)
+    {
+        s.build_actor<actors::WaterNodeActor>(node);
+    }
+    for (const map::map_node& node: grassGraph)
+    {
+        s.build_actor<actors::GrassNodeActor>(node);
+    }
+    for (const map::map_node& node: holesGraph)
+    {
+        s.build_actor<actors::HoleNodeActor>(node);
+    }
 
     auto& mister = stage_.build_actor<rabbitisland::mister>(graph, rabbitisland::find_node_of_kind(graph, '2'));
     auto& misses = stage_.build_actor<rabbitisland::misses>(graph, rabbitisland::find_node_of_kind(graph, '3'));
