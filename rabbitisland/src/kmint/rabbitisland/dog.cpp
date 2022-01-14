@@ -218,7 +218,7 @@ namespace kmint::rabbitisland
     void dog::Sleep()
     {
         _timesDrank = 0;
-        _rabbitManager->SpawnRabbits(*this);
+        _rabbitManager->Revive(*this);
     }
 
 } // namespace kmint

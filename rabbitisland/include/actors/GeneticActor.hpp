@@ -30,16 +30,9 @@ namespace actors
 
         public:
             GeneticActor(const kmint::math::vector2d& location, kmint::scalar mass, kmint::scalar maxVelocity, const kmint::play::actor& dog) : ForceDrivenActor(location, mass, maxVelocity),
-                                                                                                                                                                                                                           _dog(dog)
+                                                                                                                                                _dog(dog)
             {
-                attractionDog = kmint::random_scalar(-1, 1);
-                attractionWater = kmint::random_scalar(-1, 1);
-                attractionGrass = kmint::random_scalar(-1, 1);
-                attractionHoles = kmint::random_scalar(-1, 1);
-                cohesion = kmint::random_scalar(0, 1);
-                separation = kmint::random_scalar(0, 1);
-                alignment = kmint::random_scalar(0, 1);
-                separation = 1;
+                SetGenetics();
             }
 
             void act(kmint::delta_time dt) override
@@ -107,6 +100,23 @@ namespace actors
             [[nodiscard]] kmint::scalar perception_range() const override
             {
                 return 128.0f;
+            }
+
+            void SetGenetics()
+            {
+                attractionDog = kmint::random_scalar(-1, 1);
+                attractionWater = kmint::random_scalar(-1, 1);
+                attractionGrass = kmint::random_scalar(-1, 1);
+                attractionHoles = kmint::random_scalar(-1, 1);
+                cohesion = kmint::random_scalar(0, 1);
+                separation = kmint::random_scalar(0, 1);
+                alignment = kmint::random_scalar(0, 1);
+            }
+
+            void Reset(const kmint::math::vector2d& location)
+            {
+                this->location(location);
+                SetGenetics();
             }
     };
 }

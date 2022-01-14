@@ -52,6 +52,8 @@ namespace kmint::rabbitisland
                 alive = false;
             }
 
+            void Revive();
+
         private:
             play::image_drawable drawable_;
             bool alive;
