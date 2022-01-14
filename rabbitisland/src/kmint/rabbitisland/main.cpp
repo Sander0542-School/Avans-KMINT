@@ -9,6 +9,7 @@
 #include "kmint/ui.hpp"
 #include "actors/WaterNodeActor.hpp"
 #include "actors/HoleNodeActor.hpp"
+#include "actors/GrassNodeActor.hpp"
 
 using namespace kmint;
 
@@ -39,6 +40,10 @@ int main()
     {
         s.build_actor<actors::WaterNodeActor>(node);
     }
+    for (const map::map_node& node: grassGraph)
+    {
+        s.build_actor<actors::GrassNodeActor>(node);
+    }
     for (const map::map_node& node: holesGraph)
     {
         s.build_actor<actors::HoleNodeActor>(node);
@@ -50,7 +55,7 @@ int main()
 
     for (auto i = 0; i < 100; ++i)
     {
-        s.build_actor<rabbitisland::rabbit>(waterGraph, grassGraph, holesGraph, dog);
+        s.build_actor<rabbitisland::rabbit>(dog);
     }
 
     // Maak een event_source aan (hieruit kun je alle events halen, zoals
