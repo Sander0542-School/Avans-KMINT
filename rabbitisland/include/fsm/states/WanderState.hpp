@@ -3,6 +3,7 @@
 
 #include "containers/Random.hpp"
 #include "fsm/State.hpp"
+#include "kmint/rabbitisland/node_algorithm.hpp"
 #include "consts.hpp"
 
 #include "kmint/play.hpp"
@@ -42,7 +43,10 @@ namespace fsm::states
                 _timePassed = kmint::from_seconds(0);
             };
 
-            [[nodiscard]] double StepDuration() const;
+            [[nodiscard]] double StepDuration() const
+            {
+                return kmint::rabbitisland::waiting_time(this->Data()->node()) * Period;
+            }
 
             kmint::delta_time Duration()
             {

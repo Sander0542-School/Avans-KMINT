@@ -20,12 +20,6 @@ void WanderState<dog>::Exit()
 }
 
 template<>
-double WanderState<dog>::StepDuration() const
-{
-    return Data()->NodeWaitingTime() * Period;
-}
-
-template<>
 void WanderState<dog>::HandleStep()
 {
     Data()->UseThirst();
@@ -47,12 +41,6 @@ void WanderState<mister>::HandleStep()
 }
 
 template<>
-double WanderState<mister>::StepDuration() const
-{
-    return Period * MisterWanderSpeed;
-}
-
-template<>
 void WanderState<misses>::Exit()
 {
 }
@@ -65,10 +53,4 @@ void WanderState<misses>::AfterEnter()
 template<>
 void WanderState<misses>::HandleStep()
 {
-}
-
-template<>
-double WanderState<misses>::StepDuration() const
-{
-    return Period * MissesWanderSpeed;
 }

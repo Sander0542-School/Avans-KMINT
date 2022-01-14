@@ -29,11 +29,6 @@ namespace fsm::states
                 }
             }
 
-            [[nodiscard]] double NodeWaitingTime() const override
-            {
-                return Data()->NodeWaitingTime();
-            }
-
             void AfterStep() override
             {
                 Data()->UseThirst();

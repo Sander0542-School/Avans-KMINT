@@ -53,8 +53,6 @@ namespace kmint::rabbitisland
                 return 100.f;
             }
 
-            [[nodiscard]] double NodeWaitingTime() const;
-
             [[nodiscard]] int NearbyRabbits() const;
 
             [[nodiscard]] const rabbit* NearestRabbit() const;

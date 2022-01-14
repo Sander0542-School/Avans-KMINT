@@ -27,11 +27,6 @@ namespace fsm::states
             {
                 _target = &_actor->node();
             }
-
-            [[nodiscard]] double NodeWaitingTime() const override
-            {
-                return Data()->NodeWaitingTime();
-            }
     };
 }
 

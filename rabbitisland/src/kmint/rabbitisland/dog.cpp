@@ -110,11 +110,6 @@ namespace kmint::rabbitisland
         }
     }
 
-    double dog::NodeWaitingTime() const
-    {
-        return waiting_time(node()) * Period;
-    }
-
     int dog::NearbyRabbits() const
     {
         int nearby = 0;
