@@ -3,9 +3,6 @@
 
 const double Period = 1;
 
-const double MisterWanderSpeed = 2.0;
-const double MissesWanderSpeed = 2.0;
-
 const float MissesScareRadius = 30.f; // pixels
 
 const double MisterPhotographTime = 3.0; // seconds it takes to take photograph
