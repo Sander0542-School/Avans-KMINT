@@ -51,6 +51,15 @@ namespace kmint::rabbitisland
 
             [[nodiscard]] bool IsRabbitNearby() const;
 
+            void SetTint(kmint::graphics::color tint)
+            {
+                drawable_.set_tint(tint);
+            }
+
+            void RemoveTint()
+            {
+                drawable_.remove_tint();
+            }
 
         private:
             // hoeveel tijd is verstreken sinds de laatste beweging

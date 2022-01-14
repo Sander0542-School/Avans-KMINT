@@ -75,6 +75,16 @@ namespace kmint::rabbitisland
 
             void Sleep();
 
+            void SetTint(kmint::graphics::color tint)
+            {
+                drawable_.set_tint(tint);
+            }
+
+            void RemoveTint()
+            {
+                drawable_.remove_tint();
+            }
+
         private:
             // hoeveel tijd is verstreken sinds de laatste beweging
             delta_time t_passed_{};
