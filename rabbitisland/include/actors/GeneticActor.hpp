@@ -46,6 +46,7 @@ namespace actors
                 kmint::math::vector2d cohesionVector{0, 0};
                 kmint::math::vector2d separationVector{0, 0};
                 kmint::math::vector2d alignmentVector{0, 0};
+                kmint::math::vector2d collisionVector{0, 0};
 
                 for (auto it = begin_perceived(); it != end_perceived(); ++it)
                 {
@@ -53,9 +54,10 @@ namespace actors
                     {
                         cohesionVector += (actor->location() - location());
                         alignmentVector += actor->_velocity;
+                        separationVector += (location() - actor->location());
                         if (kmint::math::distance(location(), actor->location()) < 28)
                         {
-                            separationVector += (location() - actor->location());
+                            collisionVector += (location() - actor->location());
                         }
                     }
                     if (&*it == &_dog)
@@ -91,8 +93,9 @@ namespace actors
                 force += (grassVector) * 10;
                 force += (holesVector) * 15;
                 force += (cohesionVector) * 3;
-                force += (separationVector) * 125;
+                force += (separationVector) * 3;
                 force += (alignmentVector) * 0.5;
+                force += (collisionVector) * 125;
 
                 ApplyForce(force, dt);
             }
