@@ -20,10 +20,12 @@ namespace fsm::states
             void Enter() override
             {
                 Data()->IsHunting(false);
+                Data()->SetTint(kmint::graphics::color{0, 0, 255});
             }
 
             void Exit() override
             {
+                Data()->RemoveTint();
             }
     };
 }

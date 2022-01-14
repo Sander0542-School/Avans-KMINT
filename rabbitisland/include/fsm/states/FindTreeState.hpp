@@ -17,6 +17,12 @@ namespace fsm::states
             void AfterEnter() override
             {
                 Data()->IsHunting(false);
+                Data()->SetTint(kmint::graphics::color{119, 77, 43});
+            }
+
+            void AfterExit() override
+            {
+                Data()->RemoveTint();
             }
 
             void SetTarget() override
