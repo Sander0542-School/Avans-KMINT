@@ -2,6 +2,7 @@
 #include "kmint/rabbitisland/misses.hpp"
 #include "kmint/rabbitisland/mister.hpp"
 #include "kmint/rabbitisland/dog.hpp"
+#include "consts.hpp"
 
 using namespace fsm::states;
 using namespace kmint::rabbitisland;
@@ -26,6 +27,12 @@ void WanderState<dog>::HandleStep()
 }
 
 template<>
+double WanderState<dog>::StepDurationMultiplier() const
+{
+    return DogWanderSpeed;
+}
+
+template<>
 void WanderState<mister>::Exit()
 {
     Data()->RemoveTint();
@@ -43,6 +50,12 @@ void WanderState<mister>::HandleStep()
 }
 
 template<>
+double WanderState<mister>::StepDurationMultiplier() const
+{
+    return MisterWanderSpeed;
+}
+
+template<>
 void WanderState<misses>::Exit()
 {
     Data()->RemoveTint();
@@ -57,4 +70,10 @@ void WanderState<misses>::AfterEnter()
 template<>
 void WanderState<misses>::HandleStep()
 {
+}
+
+template<>
+double WanderState<misses>::StepDurationMultiplier() const
+{
+    return MissesWanderSpeed;
 }

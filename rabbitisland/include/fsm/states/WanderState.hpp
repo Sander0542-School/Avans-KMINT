@@ -45,7 +45,7 @@ namespace fsm::states
 
             [[nodiscard]] double StepDuration() const
             {
-                return kmint::rabbitisland::waiting_time(this->Data()->node()) * Period;
+                return kmint::rabbitisland::waiting_time(this->Data()->node()) * Period * StepDurationMultiplier();
             }
 
             kmint::delta_time Duration()
@@ -67,6 +67,8 @@ namespace fsm::states
             virtual void AfterEnter();
 
             void HandleStep();
+
+            [[nodiscard]] double StepDurationMultiplier() const;
 
             [[nodiscard]] int Steps() const
             {
