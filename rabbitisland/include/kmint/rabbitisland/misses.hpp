@@ -5,6 +5,8 @@
 #include "kmint/play.hpp"
 #include "kmint/primitives.hpp"
 #include "fsm/StateMachine.hpp"
+
+#include "consts.hpp"
 namespace kmint::rabbitisland
 {
     class misses : public play::map_bound_actor, public fsm::StateMachine<misses>
@@ -43,12 +45,21 @@ namespace kmint::rabbitisland
             // andere actors kan waarnemen.
             [[nodiscard]] scalar perception_range() const override
             {
-                return 30.f;
+                return MissesScareRadius;
             }
 
 
             [[nodiscard]] bool IsRabbitNearby() const;
 
+            void SetTint(kmint::graphics::color tint)
+            {
+                drawable_.set_tint(tint);
+            }
+
+            void RemoveTint()
+            {
+                drawable_.remove_tint();
+            }
 
         private:
             // hoeveel tijd is verstreken sinds de laatste beweging

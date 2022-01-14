@@ -21,16 +21,17 @@ namespace fsm::states
             void AfterEnter() override
             {
                 Data()->IsHunting(false);
+                Data()->SetTint(kmint::graphics::color{0, 0, 255});
+            }
+
+            void AfterExit() override
+            {
+                Data()->RemoveTint();
             }
 
             void SetTarget() override
             {
                 _target = &_actor->node();
-            }
-
-            [[nodiscard]] double NodeWaitingTime() const override
-            {
-                return Data()->NodeWaitingTime();
             }
     };
 }

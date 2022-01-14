@@ -19,6 +19,12 @@ namespace fsm::states
             void AfterEnter() override
             {
                 Data()->IsHunting(true);
+                Data()->SetTint(kmint::graphics::color{242, 90, 29});
+            }
+
+            void AfterExit() override
+            {
+                Data()->RemoveTint();
             }
 
             void SetTarget() override
@@ -27,11 +33,6 @@ namespace fsm::states
                 {
                     _target = &kmint::rabbitisland::find_closest_node_to(_graph, rabbit->location());
                 }
-            }
-
-            [[nodiscard]] double NodeWaitingTime() const override
-            {
-                return Data()->NodeWaitingTime();
             }
 
             void AfterStep() override

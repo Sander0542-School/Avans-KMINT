@@ -7,8 +7,8 @@
 namespace kmint::rabbitisland
 {
     rabbit::rabbit(const play::actor& dog) : actors::GeneticActor<rabbit>(random_location(), RabbitMass, RabbitMaxVelocity, dog),
-                                                                                                                                                   drawable_(*this, rabbit_image()),
-                                                                                                                                                   alive{true}
+                                             drawable_(*this, rabbit_image()),
+                                             alive{true}
     {
     }
 
@@ -35,6 +35,12 @@ namespace kmint::rabbitisland
                 alive = false;
             }
         }
+    }
+
+    void rabbit::Revive()
+    {
+        Reset(random_location());
+        alive = true;
     }
 
 } // namespace kmint

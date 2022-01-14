@@ -19,13 +19,14 @@ namespace fsm::states
             void AfterEnter() override
             {
                 WanderState::AfterEnter();
-//                Data()->SetTint({0, 255, 0, 127});
+                Data()->SetTint({242, 0, 0});
                 Data()->IsHunting(false);
             }
 
             void Exit() override
             {
                 WanderState::Exit();
+                Data()->RemoveTint();
             }
     };
 }

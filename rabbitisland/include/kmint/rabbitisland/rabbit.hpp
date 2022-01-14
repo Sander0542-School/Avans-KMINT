@@ -52,6 +52,18 @@ namespace kmint::rabbitisland
                 alive = false;
             }
 
+            void Revive();
+
+            void SetTint(kmint::graphics::color tint)
+            {
+                drawable_.set_tint(tint);
+            }
+
+            void RemoveTint()
+            {
+                drawable_.remove_tint();
+            }
+
         private:
             play::image_drawable drawable_;
             bool alive;

@@ -7,6 +7,7 @@
 #include "fsm/StateMachine.hpp"
 #include "kmint/rabbitisland/misses.hpp"
 #include "kmint/rabbitisland/mister.hpp"
+#include "RabbitManager.hpp"
 #include <map>
 
 namespace kmint::rabbitisland
@@ -16,7 +17,7 @@ namespace kmint::rabbitisland
     class dog : public play::map_bound_actor, public fsm::StateMachine<dog>
     {
         public:
-            dog(map::map_graph& g, map::map_node& initial_node, const mister& mister, const misses& misses);
+            dog(map::map_graph& g, map::map_node& initial_node, const mister& mister, const misses& misses, RabbitManager* rabbitManager);
 
             // wordt elke game tick aangeroepen
             void act(delta_time dt) override;
@@ -52,8 +53,6 @@ namespace kmint::rabbitisland
                 return 100.f;
             }
 
-            [[nodiscard]] double NodeWaitingTime() const;
-
             [[nodiscard]] int NearbyRabbits() const;
 
             [[nodiscard]] const rabbit* NearestRabbit() const;
@@ -76,6 +75,16 @@ namespace kmint::rabbitisland
 
             void Sleep();
 
+            void SetTint(kmint::graphics::color tint)
+            {
+                drawable_.set_tint(tint);
+            }
+
+            void RemoveTint()
+            {
+                drawable_.remove_tint();
+            }
+
         private:
             // hoeveel tijd is verstreken sinds de laatste beweging
             delta_time t_passed_{};
@@ -84,6 +93,7 @@ namespace kmint::rabbitisland
             bool _isHunting;
             int _thirst;
             int _timesDrank;
+            RabbitManager* _rabbitManager;
             std::map<const play::actor*, std::pair<double, double>> _drinks;
             double _thirstRandomValue;
             double _thirstCurrentValue;

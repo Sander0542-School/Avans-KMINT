@@ -17,6 +17,12 @@ namespace fsm::states
             void AfterEnter() override
             {
                 Data()->IsHunting(false);
+                Data()->SetTint(kmint::graphics::color{119, 77, 43});
+            }
+
+            void AfterExit() override
+            {
+                Data()->RemoveTint();
             }
 
             void SetTarget() override
@@ -25,11 +31,6 @@ namespace fsm::states
                 {
                     _target = &kmint::rabbitisland::find_node_of_kind(_graph, 'T');
                 }
-            }
-
-            [[nodiscard]] double NodeWaitingTime() const override
-            {
-                return Data()->NodeWaitingTime();
             }
 
             void AfterStep() override

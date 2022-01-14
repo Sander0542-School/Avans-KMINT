@@ -78,7 +78,7 @@ namespace fsm::states
 
             [[nodiscard]] virtual double NodeWaitingTime() const
             {
-                return Period;
+                return kmint::rabbitisland::waiting_time(this->Data()->node()) * Period;
             };
 
             virtual void AfterStep()

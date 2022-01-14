@@ -20,14 +20,16 @@ namespace kmint::rabbitisland
     using DogState = fsm::State<dog>;
     using SharedDogState = std::shared_ptr<DogState>;
 
-    dog::dog(map::map_graph& g, map::map_node& initial_node, const mister& mister, const misses& misses) : play::map_bound_actor(initial_node),
+    dog::dog(map::map_graph& g, map::map_node& initial_node, const mister& mister, const misses& misses, RabbitManager* rabbitManager) : play::map_bound_actor(initial_node),
                                                                                                            drawable_(*this, graphics::image(dog_image())),
                                                                                                            _isHunting(true),
                                                                                                            _thirst(0),
                                                                                                            _timesDrank(0),
+                                                                                                           _rabbitManager(rabbitManager),
                                                                                                            _drinks{},
                                                                                                            _thirstRandomValue(0),
                                                                                                            _thirstCurrentValue(0)
+
     {
         _drinks.emplace(&mister, std::make_pair(0, 0));
         _drinks.emplace(&misses, std::make_pair(0, 0));
@@ -52,7 +54,7 @@ namespace kmint::rabbitisland
         });
         auto thirstTreeTransition = std::make_shared<LambdaTransition<dog>>(findTreeState, [](const SharedDogState& state) { return state->Data()->TimesDrank() == 2; });
         auto treeFoundSleepTransition = std::make_shared<LambdaTransition<dog>>(sleepState, [](const SharedDogState& state) { return state->Data()->node().node_info().kind == 'T'; });
-        auto sleepWanderTransition = std::make_shared<LambdaTransition<dog>>(wanderState, [](const SharedDogState& state) { return false; });
+        auto sleepWanderTransition = std::make_shared<SleepWanderTransition<dog>>(wanderState);
         auto thirstMisterTransition = std::make_shared<ProbablisticTransition<dog>>(findMisterState, _thirstCurrentValue, _thirstRandomValue, [this, &mister]() { return DrinkChance(&mister); });
         auto thirstMissesTransition = std::make_shared<ProbablisticTransition<dog>>(findMissesState, _thirstCurrentValue, _thirstRandomValue, [this, &misses]() { return DrinkChance(&misses); });
 
@@ -106,11 +108,6 @@ namespace kmint::rabbitisland
                 }
             }
         }
-    }
-
-    double dog::NodeWaitingTime() const
-    {
-        return waiting_time(node()) * Period;
     }
 
     int dog::NearbyRabbits() const
@@ -216,6 +213,7 @@ namespace kmint::rabbitisland
     void dog::Sleep()
     {
         _timesDrank = 0;
+        _rabbitManager->Revive(*this);
     }
 
 } // namespace kmint

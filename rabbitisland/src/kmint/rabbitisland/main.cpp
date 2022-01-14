@@ -10,6 +10,7 @@
 #include "actors/WaterNodeActor.hpp"
 #include "actors/HoleNodeActor.hpp"
 #include "actors/GrassNodeActor.hpp"
+#include "RabbitManager.hpp"
 
 using namespace kmint;
 
@@ -36,6 +37,8 @@ int main()
     auto holesMap = rabbitisland::HolesMap();
     auto& holesGraph = holesMap.graph();
 
+    RabbitManager rabbitManager{s};
+
     for (const map::map_node& node: waterGraph)
     {
         s.build_actor<actors::WaterNodeActor>(node);
@@ -51,7 +54,7 @@ int main()
 
     auto& mister = s.build_actor<rabbitisland::mister>(graph, rabbitisland::find_node_of_kind(graph, '2'));
     auto& misses = s.build_actor<rabbitisland::misses>(graph, rabbitisland::find_node_of_kind(graph, '3'));
-    auto& dog = s.build_actor<rabbitisland::dog>(graph, rabbitisland::find_node_of_kind(graph, '1'), mister, misses);
+    auto& dog = s.build_actor<rabbitisland::dog>(graph, rabbitisland::find_node_of_kind(graph, '1'), mister, misses, &rabbitManager);
 
     for (auto i = 0; i < 100; ++i)
     {

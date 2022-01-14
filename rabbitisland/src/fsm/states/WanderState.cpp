@@ -9,20 +9,14 @@ using namespace kmint::rabbitisland;
 template<>
 void WanderState<dog>::AfterEnter()
 {
-//    Data()->SetTint({0, 255, 0, 127});
+    Data()->SetTint(kmint::graphics::color{61, 153, 0});
     Data()->IsHunting(true);
 }
 
 template<>
 void WanderState<dog>::Exit()
 {
-//    Data()->RemoveTint();
-}
-
-template<>
-double WanderState<dog>::StepDuration() const
-{
-    return Data()->NodeWaitingTime() * Period;
+    Data()->RemoveTint();
 }
 
 template<>
@@ -34,11 +28,13 @@ void WanderState<dog>::HandleStep()
 template<>
 void WanderState<mister>::Exit()
 {
+    Data()->RemoveTint();
 }
 
 template<>
 void WanderState<mister>::AfterEnter()
 {
+    Data()->SetTint(kmint::graphics::color{61, 153, 0});
 }
 
 template<>
@@ -47,28 +43,18 @@ void WanderState<mister>::HandleStep()
 }
 
 template<>
-double WanderState<mister>::StepDuration() const
-{
-    return Period * MisterWanderSpeed;
-}
-
-template<>
 void WanderState<misses>::Exit()
 {
+    Data()->RemoveTint();
 }
 
 template<>
 void WanderState<misses>::AfterEnter()
 {
+    Data()->SetTint(kmint::graphics::color{61, 153, 0});
 }
 
 template<>
 void WanderState<misses>::HandleStep()
 {
-}
-
-template<>
-double WanderState<misses>::StepDuration() const
-{
-    return Period * MissesWanderSpeed;
 }

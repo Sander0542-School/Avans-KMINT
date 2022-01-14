@@ -5,3 +5,4 @@
 #include "WanderScaredFromBunnyTransition.hpp"
 #include "WanderHuntTransition.hpp"
 #include "WanderPhotographTransition.hpp"
+#include "SleepWanderTransition.hpp"
