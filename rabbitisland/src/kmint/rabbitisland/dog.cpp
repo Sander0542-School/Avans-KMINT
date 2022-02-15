@@ -192,17 +192,16 @@ namespace kmint::rabbitisland
             return 1.0f / _drinks.size();
         }
 
-        double totalDrinks{0};
-        double totalWater{0};
+        double avgTotal{0};
         for (const auto& item: _drinks)
         {
-            totalDrinks += item.second.first;
-            totalWater += item.second.second;
+            avgTotal += (item.second.second / item.second.first);
         }
-        double avgWater = totalWater / totalDrinks;
         double avgFeederWater = _drinks[feeder].second / _drinks[feeder].first;
 
-        return 1 / avgWater * avgFeederWater;
+        std::cout << "Chance " << (100 / avgTotal * avgFeederWater) << std::endl;
+
+        return 1 / avgTotal * avgFeederWater;
     }
 
     int dog::TimesDrank() const
